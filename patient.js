@@ -15,6 +15,7 @@ function onInitialization(){
             headers:{"x-functions-key" : accessKey, "chart-number": chartNumber},
             crossOrigin: true,
             success: function (result) {
+                console.info(result);
                 ko.applyBindings(result);
             },
             error: () => console.error("CaseInformation failed"),

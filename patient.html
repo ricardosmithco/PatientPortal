@@ -123,32 +123,27 @@
                     </div>
                 </section>
             </div>
-            <form></form>
-            <section class="card border-primary mb-3" data-bind="hidden: $data.templates.length==0">
+            <form method="POST" action="/History" class="mb-2 text-center">
+                <button type="submit" id="lnkHistory" class="btn btn-link btn-warning text-light" style="font-size: x-large">
+                    Click to Start Pre-OP Questionnaire
+                </button>
+            </form>
+            <section class="card border-primary mb-3" data-bind="hidden: $data.forms.length==0">
                 <div class="card-header bg-primary text-white">
                     <i class="fa fa-medkit fa-fw" aria-hidden="true"></i>
-                    Forms
-                    <span class="badge badge-light" data-bind="text: $data.templates.length"></span>
+                    Forms & Instructions
+                    <span class="badge badge-light" data-bind="text: $data.forms.length"></span>
                 </div>
                 <div class="card-body">
-                    <section data-bind="foreach: $data.templates">
-                        <input type="hidden" data-bind="value: $data.questionnaireId" value>
-                        <input type="hidden" data-bind="value: $data.questionnaireStatusId" value>
-                        <input type="hidden" data-bind="value: $data.questionnaireStatusText" value>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Name</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control-plaintext" data-bind="value: $data.templateName"
-                                    readonly>
-                            </div>
+                    <div data-bind="foreach: $data.forms">
+                        <div class="col text-center">
+                            <a data-bind="attr:{href: $data.formUrl}" target="_blank">
+                                <i class="fa fa-file-pdf-o fa-2x text-danger"></i><br>
+                                <!--ko text: formName-->
+                                <!-- /ko -->
+                            </a>
                         </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Description</label>
-                            <div class="col-sm-10">
-                                <p class="form-control-plaintext" data-bind="text: $data.templateDescription"></p>
-                            </div>
-                        </div>
-                    </section>
+                    </div>
                 </div>
             </section>
         </main>
