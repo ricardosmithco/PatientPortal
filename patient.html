@@ -135,7 +135,7 @@
                     <span class="badge badge-light" data-bind="text: $data.forms.length"></span>
                 </div>
                 <div class="card-body">
-                    <div data-bind="foreach: $data.forms">
+                    <div class="row" data-bind="foreach: $data.forms">
                         <div class="col text-center">
                             <a data-bind="attr:{href: $data.formUrl}" target="_blank">
                                 <i class="fa fa-file-pdf-o fa-2x text-danger"></i><br>
@@ -149,8 +149,10 @@
         </main>
     </main>
     <footer class="border-top footer text-muted bg-light">
-        <div class="container text-center">
-            © 2020 - Mobile Anesthesiologists Chicago, LLC. All rights reserved
+        <div class="container text-center py-2">
+            © 2020 - Mobile Anesthesiologists Chicago, LLC. All rights reserved <br>
+            Patient Support
+            <a id="SupportPhone" href="tel:(704) 464-4439" title="Patient Supprt PHone Number">(704) 464-4439</a>
         </div>
     </footer>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>

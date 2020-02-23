@@ -8,7 +8,8 @@ function onInitialization(){
     $("#mnuPatient").html(patientName);
     $("#SiteNavigation").show();
     var environment = sessionStorage.getItem("environment");
-    $("body").addClass(environment);
+    // forcing environment to dev below:
+    $("body").addClass("MobileA_Dev");
     $.ajax({
             url: hostUrl+"CaseInformation/"+caseId,
             async: false,

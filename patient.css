@@ -4,7 +4,7 @@ html {
 }
 
 body {
-    margin-bottom: 60px
+    margin-bottom: 80px
 }
 
 #SiteNavigation {
@@ -15,12 +15,15 @@ body {
     font-size: 1.25rem
 }
 
+.navbar-expand-md .navbar-nav .nav-link {
+    padding-left: 2rem
+}
+
 .footer {
     position: absolute;
     bottom: 0;
     width: 100%;
-    white-space: nowrap;
-    line-height: 60px
+    white-space: nowrap
 }
 
 .MobileA_Dev {
@@ -33,4 +36,8 @@ body {
 
 .MobileA_UAT {
     background-image: url(https://mobilea.blob.core.windows.net/backgrounds/MobileA_UAT.png)
+}
+
+label.is-invalid {
+    color: #cd0200
 }
