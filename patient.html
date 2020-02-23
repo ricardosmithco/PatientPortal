@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootswatch/4.4.1/cyborg/bootstrap.min.css">
+    <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootswatch/4.4.1/spacelab/bootstrap.min.css">
+    <link rel="stylesheet" href="patient.css">
+    <title>Home | Mobile Patient Portal</title>
+</head>
+
+<body>
+    <!-- <script>document.getElementById("body").removeAttribute("style");</script> -->
+    <header>
+        <nav id="SiteNavigation" class="navbar navbar-expand navbar-dark bg-dark" role="navigation" style>
+            <a class="navbar-brand" href="//zzzmd.com" target="_blank" title="Click to visit Mobile Anesthesiologists">
+                PORTAL
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/" title="HomePage">
+                            Home
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Account" title="Demographic and Insurance Information">Demographics & Insurance</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/History" title="Medical History">Medical History</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown show">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle text-light" role="button" href="#"
+                            data-toggle="dropdown">
+                            <i class="fa fa-user-circle"></i>
+                            <span id="mnuPatient"></span>
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="javascript:void(0)" onclick="signOut();" title="Sign-out">
+                                <i class="fa fa-power-off fa-fw">Sign-Out</i>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main role="main" class="container-xl">
+        <h3 id="Loading" class="text-secondary text-center mt-5">
+            <i class="fa fa-spinner fa-spin"></i>
+            Loading...
+        </h3>
+        <main id="PatientProfile" style>
+            <h1 class="display-4">
+                <img src="https://mobilea.blob.core.windows.net/images/logo167x77.png" height="77" width="167">
+                Patient Portal
+            </h1>
+            
+            <div class="card-deck mb-3">
+                <section class="card border-primary w-50">
+                    <div class="card-header bg-primary text-white">
+                        <i class="fa fa-calendar fa-fw"></i>
+                        Next Procedure
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title text-dark d-none d-lg-block"> <span data-bind="text: moment($data.facility.procedureDate).format('LL')
+                            + ' - ' + moment($data.facility.procedureTime).format('LT')"></span></h5>
+                        <h5 class="card-title text-dark d-none d-lg-block"></h5>
+                        <address>
+                            <!-- ko text: $data.facility.facilityName-->
+                            <!-- /ko --><br>
+                            <!-- ko text: $data.facility.facilityAddress1-->
+                            <!-- /ko --><br>
+                            <!-- ko text: $data.facility.facilityAddress2-->
+                            <!-- /ko -->
+                            <!-- ko text: $data.facility.facilityAddress3-->
+                            <!-- /ko --><br>
+                            <!-- ko text: $data.facility.facilityCity-->
+                            <!-- /ko --> ,
+                            <!-- ko text: $data.facility.facilityState-->
+                            <!-- /ko -->
+                            <!-- ko text: $data.facility.facilityPostalCode-->
+                            <!-- /ko -->
+                            <!-- ko text: $data.facility.facilityPhoneNumber-->
+                            <!-- /ko -->
+                        </address>
+                    </div>
+                </section>
+                <section class="card border-primary w-50">
+                    <div class="card-header bg-primary text-white">
+                        <i class="fa fa-tasks fa-fw"></i>
+                        Tasks
+                        <span class="badge badge-light" data-bind="text: $data.tasks.length"></span>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="text-secondary my-3" data-bind="visible: tasks.length==0" style="display: none;">
+                            <i class="far fa-exclamation-circle text-info"></i>
+                            You have no tasks at this time.
+                        </h4>
+                        <ul data-bind="foreach: tasks" class="list-unstyled">
+                            <li>
+                                <!-- ko if: $data.completed -->
+                                <i class="fa fa-check-circle text-success fa-fw"></i>
+                                <!-- ko text: $data.taskName-->
+                                <!-- /ko -->
+                                <!-- /ko -->
+                            </li>
+                            <li>
+                                <!-- ko ifnot: $data.completed-->
+                                <i class="fa fa-check-circle text-danger fa-fw"></i>
+                                <a href="." data-bind="text: $data.taskName, attr: {title: $data.taskDescription}"></a>
+                                <!-- /ko -->
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+            </div>
+            <form></form>
+            <section class="card border-primary mb-3" data-bind="hidden: $data.templates.length==0">
+                <div class="card-header bg-primary text-white">
+                    <i class="fa fa-medkit fa-fw" aria-hidden="true"></i>
+                    Forms
+                    <span class="badge badge-light" data-bind="text: $data.templates.length"></span>
+                </div>
+                <div class="card-body">
+                    <section data-bind="foreach: $data.templates">
+                        <input type="hidden" data-bind="value: $data.questionnaireId" value>
+                        <input type="hidden" data-bind="value: $data.questionnaireStatusId" value>
+                        <input type="hidden" data-bind="value: $data.questionnaireStatusText" value>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Name</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control-plaintext" data-bind="value: $data.templateName"
+                                    readonly>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Description</label>
+                            <div class="col-sm-10">
+                                <p class="form-control-plaintext" data-bind="text: $data.templateDescription"></p>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </section>
+        </main>
+    </main>
+    <footer class="border-top footer text-muted bg-light">
+        <div class="container text-center">
+            © 2020 - Mobile Anesthesiologists Chicago, LLC. All rights reserved
+        </div>
+    </footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="//cdn.jsdelivr.net/gh/RobinHerbots/jquery.inputmask@5.0.4-beta.8/dist/jquery.inputmask.min.js">
+    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js"></script>
+    <script src="patient.js"></script>
+</body>
+
+</html>

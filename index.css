@@ -1,0 +1,47 @@
+html {
+  position: relative;
+  min-height: 100%
+}
+
+body {
+  margin-bottom: 60px
+}
+
+h1 a:hover,
+h1 a:visited {
+  text-decoration: none
+}
+
+label.is-invalid {
+  color: #cd0200
+}
+
+.jumbotron {
+  background-image: url("//mobilea.blob.core.windows.net/images/picture5.jpg");
+  height: 325px;
+  background-size: cover
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px
+}
+
+#UserAuthorized {
+  max-width: 275px
+}
+
+.MobileA_Dev {
+  background-image: url(https://mobilea.blob.core.windows.net/backgrounds/MobileA_Dev.png)
+}
+
+.MobileA_QA {
+  background-image: url(https://mobilea.blob.core.windows.net/backgrounds/MobileA_QA.png)
+}
+
+.MobileA_UAT {
+  background-image: url(https://mobilea.blob.core.windows.net/backgrounds/MobileA_UAT.png)
+}

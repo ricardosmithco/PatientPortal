@@ -1,0 +1,36 @@
+html {
+    position: relative;
+    min-height: 100%
+}
+
+body {
+    margin-bottom: 60px
+}
+
+#SiteNavigation {
+    margin-bottom: .5rem
+}
+
+.navbar {
+    font-size: 1.25rem
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px
+}
+
+.MobileA_Dev {
+    background-image: url(https://mobilea.blob.core.windows.net/backgrounds/MobileA_Dev.png)
+}
+
+.MobileA_QA {
+    background-image: url(https://mobilea.blob.core.windows.net/backgrounds/MobileA_QA.png)
+}
+
+.MobileA_UAT {
+    background-image: url(https://mobilea.blob.core.windows.net/backgrounds/MobileA_UAT.png)
+}
