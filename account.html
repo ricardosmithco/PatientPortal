@@ -1,263 +1,299 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="application-name" content="Mobile Nexus">
-        <meta name="description" content="Mobile Anesthesiologists LLC. - Mobile Nexus (Patient Portal)">
-        <title>Profile | Mobile Patient Portal</title>
-        <link href="//stackpath.bootstrapcdn.com/bootswatch/4.4.1/spacelab/bootstrap.min.css" rel="stylesheet">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.css" rel="stylesheet">
-        <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
-        <link href="account.css" rel="stylesheet">
-        <link href="patient.css" rel="stylesheet">
-    </head>
-    <body>
-        <script>
-            document.getElementById("body").removeAttribute("style");
-        </script>
-        <header>
-            <nav id="SiteNavigation" class="navbar navbar-expand navbar-dark bg-dark" role="navigation" style>
-                <a class="navbar-brand" href="//zzzmd.com" target="_blank" title="Click to visit Mobile Anesthesiologists">
-                    PORTAL
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="/" title="HomePage">
-                                Home
-                                <span class="sr-only">(current)</span>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="application-name" content="Mobile Nexus">
+    <meta name="description" content="Mobile Anesthesiologists LLC. - Mobile Nexus (Patient Portal)">
+    <title>Profile | Mobile Patient Portal</title>
+    <link href="//stackpath.bootstrapcdn.com/bootswatch/4.4.1/spacelab/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.css" rel="stylesheet">
+    <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link href="account.css" rel="stylesheet">
+    <link href="patient.css" rel="stylesheet">
+</head>
+
+<body>
+    <script>
+        document.getElementById("body").removeAttribute("style");
+    </script>
+    <header>
+        <nav id="SiteNavigation" class="navbar navbar-expand navbar-dark bg-dark" role="navigation" style>
+            <a class="navbar-brand" href="//zzzmd.com" target="_blank" title="Click to visit Mobile Anesthesiologists">
+                PORTAL
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/" title="HomePage">
+                            Home
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="account.html"
+                            title="Demographic and Insurance Information">Demographics & Insurance</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/history.html" title="Medical History">Medical History</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown show">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle text-light" role="button" href="#"
+                            data-toggle="dropdown">
+                            <i class="fa fa-user-circle"></i>
+                            <span id="mnuPatient"></span>
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="javascript:void(0)" onclick="signOut();" title="Sign-out">
+                                <i class="fa fa-power-off fa-fw">Sign-Out</i>
                             </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="account.html" title="Demographic and Insurance Information">Demographics & Insurance</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/history.html" title="Medical History">Medical History</a>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav">
-                        <li class="nav-item dropdown show">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle text-light" role="button" href="#"
-                                data-toggle="dropdown">
-                                <i class="fa fa-user-circle"></i>
-                                <span id="mnuPatient"></span>
-                            </a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="javascript:void(0)" onclick="signOut();" title="Sign-out">
-                                    <i class="fa fa-power-off fa-fw">Sign-Out</i>
-                                </a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </header>
-        <main role="main" class="container-xl">
-            <div id="Modal" class="modal fade" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title"></h5>
-                            <div>
-                              <span class="modal-title-right"></span>
-                              <button type="button" class="close" data-dismiss="modal"><span></span></button>  
-                            </div>
                         </div>
-                        <div class="modal-body"></div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main role="main" class="container-xl">
+        <div id="Modal" class="modal fade" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"></h5>
+                        <div>
+                            <span class="modal-title-right"></span>
+                            <button type="button" class="close" data-dismiss="modal"><span></span></button>
                         </div>
+                    </div>
+                    <div class="modal-body"></div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
-            <h3 id="Loading" class="text-secondary text-center mt-5">
-                <i class="fa fa-spinner fa-spin"></i>
-                Loading. . .
-            </h3>
-            <main id="PatientProfile" data-bind="childrenComplete: $data.onBindingComplete" style="display: none;">
-                <h1>
-                    <i class="fa-user-plus"></i>
-                    Demographic & Insurance
-                </h1>
-                <section class="card border-secondary mb-3">
+        </div>
+        <h3 id="Loading" class="text-secondary text-center mt-5">
+            <i class="fa fa-spinner fa-spin"></i>
+            Loading. . .
+        </h3>
+        <main id="PatientProfile" data-bind="childrenComplete: $data.onBindingComplete" style="display: none;">
+            <h1>
+                <i class="fa fa-user-plus"></i>
+                Demographic & Insurance
+            </h1>
+            <section class="card border-secondary mb-3">
+                <div class="card-header d-flex justify-content-between">
+                    <h5 class="card-title m-0">
+                        <i class="fa fa-user-circle fa-fw"></i>
+                        Demographic
+                    </h5>
+                    <a href="#" id="lnkEditDemographics">
+                        <i class="fa fa-pencil"></i>
+                        Edit
+                    </a>
+                </div>
+                <div class="card-body mr-3">
+                    <div class="row">
+                        <div class="col">
+                            <h5 data-bind="text: $data.demographics.patientName"></h5>
+                            <address>
+                                <!-- ko text: $data.demographics.address1-->
+                                <!-- /ko -->
+                                <!-- ko text: $data.demographics.address2-->
+                                <!-- /ko -->
+                                <!-- ko text: $data.demographics.city-->
+                                <!-- /ko -->
+                                <!-- ko text: $data.demographics.state-->
+                                <!-- /ko -->
+                                <!-- ko text: $data.demographics.postalCode-->
+                                <!-- /ko -->
+                                <a
+                                    data-bind="text: $data.demographics.email, attr: {href: 'email: ' + $data.demographics.email}"></a>
+                            </address>
+                        </div>
+                        <div class="col">
+                            <dl class="row">
+                                <dt class="col-6"><i class="fa fa-phone fa-fw"></i>Cell Phone</dt>
+                                <dd class="col-6">
+                                    <a
+                                        data-bind="text: $data.demographics.cellPhone, attr:{ href: 'tel: ' + $data.demographics.cellPhone}"></a>
+                                </dd>
+
+                                <dt class="col-6"><i class="fa fa-phone fa-fw"></i>Work Phone</dt>
+                                <dd class="col-6">
+                                    <a
+                                        data-bind="text: $data.demographics.workPhone, attr:{ href: 'tel: ' + $data.demographics.workPhone}"></a>
+                                </dd>
+
+                                <dt class="col-6"><i class="fa fa-phone fa-fw"></i>Home Phone</dt>
+                                <dd class="col-6">
+                                    <a
+                                        data-bind="text: $data.demographics.homePhone, attr:{ href: 'tel: ' + $data.demographics.homePhone}"></a>
+                                </dd>
+                            </dl>
+                        </div>
+                        <div class="col">
+                            <dl class="row">
+                                <dt class="col-8">Preferred Language</dt>
+                                <dd class="col-4">--</dd>
+                                <dt class="col-8">Race</dt>
+                                <dd class="col-4">--</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="card-deck mb-3">
+                <section class="card border-secondary">
                     <div class="card-header d-flex justify-content-between">
                         <h5 class="card-title m-0">
-                            <i class="fa fa-user-circle fa-fw"></i>
-                            Demographic
+                            <i class="fa fa-address-card-o fa-fw"></i>
+                            Primary Insurance
                         </h5>
-                        <a href="#" id="lnkEditDemographics">
+                        <a href="#" id="lnkEditPrimaryInsurance">
                             <i class="fa fa-pencil"></i>
                             Edit
                         </a>
                     </div>
-                    <div class="card-body mr-3">
-                        <div class="row">
-                            <div class="col">
-                                <h5 data-bind="text: $data.demographics.patientName"></h5>
+                    <div class="card-body">
+                        <h4 class="text-secondary text-center pt-4"
+                            data-bind="visible: $data.insurance.primaryInsuranceCarrier == null" style="display: none;">
+                            <i class="fa fa-exclamation-triangle text-warning"></i>
+                            Not on file.
+                        </h4>
+                        <dl class="row" data-bind="visible: $data.insurance.primaryInsuranceCarrier() != null">
+                            <dt class="col-4">Carrier</dt>
+                            <dd class="col-8" data-bind="text: $data.insurance.primaryInsuranceCarrier"></dd>
+                            <dt class="col-4">Plan</dt>
+                            <dd class="col-8" data-bind="text: $data.insurance.primaryInsuranceCarrierAlt"></dd>
+                            <dt class="col-4">ID #</dt>
+                            <dd class="col-8" data-bind="text: $data.insurance.primaryInsuranceIDNumber"></dd>
+                            <dt class="col-4 text-nowrap">Group Name</dt>
+                            <dd class="col-8" data-bind="text: $data.insurance.primaryInsuranceGroupName"></dd>
+                            <dt class="col-4 text-nowrap">Group #</dt>
+                            <dd class="col-8" data-bind="text: $data.insurance.primaryInsuranceGroupNumber"></dd>
+                            <dt class="col-4">IPA/Medical</dt>
+                            <dd class="col-8" data-bind="text: $data.insurance.primaryInsuranceIPAMedicalGroup"></dd>
+                            <dt class="col-4 text-nowrap">Authorization #</dt>
+                            <dd class="col-8" data-bind="text: $data.insurance.primaryInsuranceAuthorizationNumber">
+                            </dd>
+                            <dt class="col-4 text-nowrap">Address</dt>
+                            <dd class="col-8">
                                 <address>
-                                    <!-- ko text: $ data.demographics.address1--><!-- /ko -->
-                                <!-- ko text: $ data.demographics.address2--><!-- /ko -->
-                                <!-- ko text: $ data.demographics.city--><!-- /ko -->
-                                <!-- ko text: $ data.demographics.state--><!-- /ko -->
-                                <!-- ko text: $ data.demographics.postalCode--><!-- /ko -->
-                                <a data-bind="text: $data.demographics.email, attr: {href: 'email: ' + $data.demographics.email}"></a>
+                                    <div
+                                        data-bind="text: $data.insurance.primaryInsuranceAddress1, hidden: $data.insurance.primaryInsuranceAddress1 == null">
+                                    </div>
+                                    <div
+                                        data-bind="text: $data.insurance.primaryInsuranceAddress2, hidden: $data.insurance.primaryInsuranceAddress2 == null">
+                                    </div>
+                                    <div data-bind="hidden: $data.insurance.primaryInsuranceCity == null">
+                                        <!-- ko text: $data.insurance.primaryInsuranceCity -->
+                                        <!-- /ko -->
+                                        ,
+                                        <!-- ko text: $data.insurance.primaryInsuranceState -->
+                                        <!-- /ko -->
+                                        <!-- ko text: $data.insurance.primaryInsurancePostalCode -->
+                                        <!-- /ko -->
+                                    </div>
+                                    <a data-bind="text:$data.insurance.primaryInsurancePhoneNumber, attr: {href: 'tel:' + $data.insurance.primaryInsurancePhoneNumber}, 
+                                        hidden:$data.insurance.primaryInsurancePhoneNumber == null"
+                                        href="tel:[object Object]">(800) 214-4844</a>
                                 </address>
-                            </div>
-                            <div class="col">
-                                <dl class="row">
-                                    <dt class="col-6"><i class="fa fa-phone fa-fw"></i>Cell Phone</dt>
-                                    <dd class="col-6">
-                                        <a data-bind="text: $data.demographics.cellPhone, attr:{ href: 'tel: ' + $data.demographics.cellPhone}"></a>
-                                    </dd>
-
-                                    <dt class="col-6"><i class="fa fa-phone fa-fw"></i>Work Phone</dt>
-                                    <dd class="col-6">
-                                        <a data-bind="text: $data.demographics.workPhone, attr:{ href: 'tel: ' + $data.demographics.workPhone}"></a>
-                                    </dd>
-
-                                    <dt class="col-6"><i class="fa fa-phone fa-fw"></i>Home Phone</dt>
-                                    <dd class="col-6">
-                                        <a data-bind="text: $data.demographics.homePhone, attr:{ href: 'tel: ' + $data.demographics.homePhone}"></a>
-                                    </dd>
-                                </dl>
-                            </div>
-                            <div class="col">
-                                <dl class="row">
-                                    <dt class="col-8">Preferred Language</dt>
-                                    <dd class="col-4">--</dd>
-                                    <dt class="col-8">Race</dt>
-                                    <dd class="col-4">--</dd>
-                                </dl>
-                            </div>
-                        </div>
+                            </dd>
+                        </dl>
                     </div>
                 </section>
-                <section class="card-deck mb-3">
-                    <section class="card border-secondary">
-                        <div class="card-header d-flex justify-content-between">
-                            <h5 class="card-title m-0">
-                                <i class="fa fa-address-card-o fa-fw"></i>
-                                Primary Insurance
-                            </h5>
-                            <a href="#" id="lnkEditPrimaryInsurance">
-                                <i class="fa fa-pencil"></i>
-                                Edit
-                            </a>
-                        </div>
-                        <div class="card-body">
-                            <h4 class="text-secondary text-center pt-4" data-bind="visible: $data.insurnace.primaryInsuranceCarrier == null" style="display: none;">
-                                <i class="fa fa-exclamation-triangle text-warning"></i>
-                                Not on file.
-                            </h4>
-                            <dl class="row" data-bind="visible: $data.insurnace.primaryInsuranceCarrier != null">
-                                <dt class="col-4">Carrier</dt>
-                                <dd class="col-8" data-bind="text: $data.insurance.primaryInsuranceCarrier"></dd>
-                                <dt class="col-4">Plan</dt>
-                                <dd class="col-8" data-bind="text: $data.insurance.primaryInsuranceCarrierAlt"></dd>
-                                <dt class="col-4">ID #</dt>
-                                <dd class="col-8" data-bind="text: $data.insurance.primaryInsuranceIDNumber"></dd>
-                                <dt class="col-4 text-nowrap">Group Name</dt>
-                                <dd class="col-8" data-bind="text: $data.insurance.primaryInsuranceGroupName"></dd>
-                                <dt class="col-4 text-nowrap">Group #</dt>
-                                <dd class="col-8" data-bind="text: $data.insurance.primaryInsuranceGroupNumber"></dd>
-                                <dt class="col-4">IPA/Medical</dt>
-                                <dd class="col-8" data-bind="text: $data.insurance.primaryInsuranceIPAMedicalGroup"></dd>
-                                <dt class="col-4 text-nowrap">Authorization #</dt>
-                                <dd class="col-8" data-bind="text: $data.insurance.primaryInsuranceAuthorizationNumber"></dd>
-                                <dt class="col-4 text-nowrap">Address</dt>
-                                <dd class="col-8">
-                                    <address>
-                                        <div data-bind="text: $data.insurance.primaryInsuranceAddress1, hidden: $data.insurance.primaryInsuranceAddress1 == null"></div>
-                                        <div data-bind="text: $data.insurance.primaryInsuranceAddress2, hidden: $data.insurance.primaryInsuranceAddress2 == null"></div>
-                                        <div data-bind="hidden: $data.insurance.primaryInsuranceCity == null">
-                                            <!-- ko text: $data.insurance.primaryInsuranceCity --><!-- /ko -->
-                                            , 
-                                            <!-- ko text: $data.insurance.primaryInsuranceState --><!-- /ko -->
-                                            <!-- ko text: $data.insurance.primaryInsurancePostalCode --><!-- /ko -->
-                                        </div>
-                                        <a data-bind="text:$data.insurance.primaryInsurancePhoneNumber, attr: {href: 'tel:' + $data.insurance.primaryInsurancePhoneNumber}, 
-                                        hidden:$data.insurance.primaryInsurancePhoneNumber == null" href="tel:[object Object]">(800) 214-4844</a>
-                                    </address>
-                                </dd>
-                            </dl>
-                        </div>
-                    </section>
-                    <section class="card border-secondary">
-                        <div class="card-header d-flex justify-content-between">
-                            <h5 class="card-title m-0">
-                                <i class="fa fa-address-card-o fa-fw"></i>
-                                Secondary Insurance
-                            </h5>
-                            <a href="#" id="lnkEditSecondaryInsurance">
-                                <i class="fa fa-pencil"></i>
-                                Edit
-                            </a>
-                        </div>
-                        <div class="card-body">
-                            <h4 class="text-secondary text-center pt-4" data-bind="visible: $data.insurnace.secondaryInsuranceCarrier == null" style="display: none;">
-                                <i class="fa fa-exclamation-triangle text-warning"></i>
-                                Not on file.
-                            </h4>
-                            <dl class="row" data-bind="visible: $data.insurance.secondaryInsuranceCarrier() != null" style="display: none;">
-                                <dt class="col-4">Carrier</dt>
-                                <dd class="col-8" data-bind="text: $data.insurance.secondaryInsuranceCarrier"></dd>
-                                <dt class="col-4">Plan</dt>
-                                <dd class="col-8" data-bind="text: $data.insurance.secondaryInsuranceCarrierAlt"></dd>
-                                <dt class="col-4">ID #</dt>
-                                <dd class="col-8" data-bind="text: $data.insurance.secondaryInsuranceIDNumber"></dd>
-                                <dt class="col-4 text-nowrap">Group Name</dt>
-                                <dd class="col-8" data-bind="text: $data.insurance.secondaryInsuranceGroupName"></dd>
-                                <dt class="col-4 text-nowrap">Group #</dt>
-                                <dd class="col-8" data-bind="text: $data.insurance.secondaryInsuranceGroupNumber"></dd>
-                                <dt class="col-4">IPA/Medical</dt>
-                                <dd class="col-8" data-bind="text: $data.insurance.secondaryInsuranceIPAMedicalGroup"></dd>
-                                <dt class="col-4 text-nowrap">Authorization #</dt>
-                                <dd class="col-8" data-bind="text: $data.insurance.secondaryInsuranceAuthorizationNumber"></dd>
-                                <dt class="col-4 text-nowrap">Address</dt>
-                                <dd class="col-8">
-                                    <address>
-                                        <div data-bind="text: $data.insurance.secondaryInsuranceAddress1, hidden: $data.insurance.secondaryInsuranceAddress1 == null"></div>
-                                        <div data-bind="text: $data.insurance.secondaryInsuranceAddress2, hidden: $data.insurance.secondaryInsuranceAddress2 == null"></div>
-                                        <div data-bind="hidden: $data.insurance.secondaryInsuranceCity == null">
-                                            <!-- ko text: $data.insurance.secondaryInsuranceCity --><!-- /ko -->
-                                            , 
-                                            <!-- ko text: $data.insurance.secondaryInsuranceState --><!-- /ko -->
-                                            <!-- ko text: $data.insurance.secondaryInsurancePostalCode --><!-- /ko -->
-                                        </div>
-                                        <a data-bind="text:$data.insurance.secondaryInsurancePhoneNumber, attr: {href: 'tel:' + $data.insurance.secondaryInsurancePhoneNumber}, 
-                                        hidden:$data.insurance.secondaryInsurancePhoneNumber == null" href="tel:[object Object]">(800) 214-4844</a>
-                                    </address>
-                                </dd>
-                            </dl>
-                        </div>
-                    </section>
+                <section class="card border-secondary">
+                    <div class="card-header d-flex justify-content-between">
+                        <h5 class="card-title m-0">
+                            <i class="fa fa-address-card-o fa-fw"></i>
+                            Secondary Insurance
+                        </h5>
+                        <a href="#" id="lnkEditSecondaryInsurance">
+                            <i class="fa fa-pencil"></i>
+                            Edit
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="text-secondary text-center pt-4"
+                            data-bind="visible: $data.insurance.secondaryInsuranceCarrier == null"
+                            style="display: none;">
+                            <i class="fa fa-exclamation-triangle text-warning"></i>
+                            Not on file.
+                        </h4>
+                        <dl class="row" data-bind="visible: $data.insurance.secondaryInsuranceCarrier() != null"
+                            style="display: none;">
+                            <dt class="col-4">Carrier</dt>
+                            <dd class="col-8" data-bind="text: $data.insurance.secondaryInsuranceCarrier"></dd>
+                            <dt class="col-4">Plan</dt>
+                            <dd class="col-8" data-bind="text: $data.insurance.secondaryInsuranceCarrierAlt"></dd>
+                            <dt class="col-4">ID #</dt>
+                            <dd class="col-8" data-bind="text: $data.insurance.secondaryInsuranceIDNumber"></dd>
+                            <dt class="col-4 text-nowrap">Group Name</dt>
+                            <dd class="col-8" data-bind="text: $data.insurance.secondaryInsuranceGroupName"></dd>
+                            <dt class="col-4 text-nowrap">Group #</dt>
+                            <dd class="col-8" data-bind="text: $data.insurance.secondaryInsuranceGroupNumber"></dd>
+                            <dt class="col-4">IPA/Medical</dt>
+                            <dd class="col-8" data-bind="text: $data.insurance.secondaryInsuranceIPAMedicalGroup"></dd>
+                            <dt class="col-4 text-nowrap">Authorization #</dt>
+                            <dd class="col-8" data-bind="text: $data.insurance.secondaryInsuranceAuthorizationNumber">
+                            </dd>
+                            <dt class="col-4 text-nowrap">Address</dt>
+                            <dd class="col-8">
+                                <address>
+                                    <div
+                                        data-bind="text: $data.insurance.secondaryInsuranceAddress1, hidden: $data.insurance.secondaryInsuranceAddress1 == null">
+                                    </div>
+                                    <div
+                                        data-bind="text: $data.insurance.secondaryInsuranceAddress2, hidden: $data.insurance.secondaryInsuranceAddress2 == null">
+                                    </div>
+                                    <div data-bind="hidden: $data.insurance.secondaryInsuranceCity == null">
+                                        <!-- ko text: $data.insurance.secondaryInsuranceCity -->
+                                        <!-- /ko -->
+                                        ,
+                                        <!-- ko text: $data.insurance.secondaryInsuranceState -->
+                                        <!-- /ko -->
+                                        <!-- ko text: $data.insurance.secondaryInsurancePostalCode -->
+                                        <!-- /ko -->
+                                    </div>
+                                    <a data-bind="text:$data.insurance.secondaryInsurancePhoneNumber, attr: {href: 'tel:' + $data.insurance.secondaryInsurancePhoneNumber}, 
+                                        hidden:$data.insurance.secondaryInsurancePhoneNumber == null"
+                                        href="tel:[object Object]">(800) 214-4844</a>
+                                </address>
+                            </dd>
+                        </dl>
+                    </div>
                 </section>
-            </main>
+            </section>
         </main>
-        <footer class="border-top footer text-muted bg-light">
-            <div class="container text-center py-2">
-                © 2020 - Mobile Anesthesiologists Chicago, LLC. All rights reserved <br>
-                Patient Support
-                <a id="SupportPhone" href="tel:(704) 464-4439" title="Patient Supprt PHone Number">(704) 464-4439</a>
-            </div>
-        </footer>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
-        <script src="//cdn.jsdelivr.net/gh/RobinHerbots/jquery.inputmask@5.0.4-beta.8/dist/jquery.inputmask.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js"></script>
-        <script src="patient.js"></script> <!--this is Nelson's site.js-->
-        <script src="account.js"></script>
-        <script src="index2.js"></script> <!-- this is Nelson's index.js -->
-        <script src="patientPatient.js"></script> <!-- this is Nelson's patient.js-->
-    </body>
+    </main>
+    <footer class="border-top footer text-muted bg-light">
+        <div class="container text-center py-2">
+            © 2020 - Mobile Anesthesiologists Chicago, LLC. All rights reserved <br>
+            Patient Support
+            <a id="SupportPhone" href="tel:(704) 464-4439" title="Patient Supprt PHone Number">(704) 464-4439</a>
+        </div>
+    </footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="//cdn.jsdelivr.net/gh/RobinHerbots/jquery.inputmask@5.0.4-beta.8/dist/jquery.inputmask.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.4.1/knockout.mapping.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
+    <!-- <script src="patient.js"></script> this is Nelson's site.js-->
+    <script src="account.js"></script>
+    <script src="index2.js"></script> <!-- this is Nelson's index.js -->
+    <!--<script src="patientPatient.js"></script>  this is Nelson's patient.js-->
+</body>
+
 </html>
