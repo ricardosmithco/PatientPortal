@@ -89,7 +89,7 @@ var pageAccountIndex;
                         $(this).html(htmlError);
                         return;
                 }
-                //pageAccountDemographicsInitialize(onSave);
+                pageAccountDemographicsInitialize(onSave);
 
             });
             
