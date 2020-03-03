@@ -80,7 +80,18 @@ var pageAccountIndex;
 
     function showDemographics(){
         try{
+            let SubmitButtonId = "#Demographics_Submit";
+            let editorCss = "demographics-editor";
+            let modalElement = showModal("modal-lg", "PatientDemographics", "(Editor)", "fa fa-user-edit");
+            modalElement.find(".modal-footer button").addClass(editorCss);
+            modalElement.find(".modal-body").load("demographics.html", (responseText, textStatus, jqXHR) =>{  
+                if(textStatus === "error"){
+                        $(this).html(htmlError);
+                        return;
+                }
+                //pageAccountDemographicsInitialize(onSave);
 
+            });
             
         }catch (error){}
     }
@@ -89,7 +100,8 @@ var pageAccountIndex;
 
 
     // ALL FUNCTIONS I HAVE TO REPLACE:
-
+    
+    // function goes in account/index.js
     function profile(caseId){        
         return new Promise((resolve, reject) => {
             $.ajax({
@@ -102,5 +114,41 @@ var pageAccountIndex;
             });
         });
     }
+
+    //function goes in site.js
+    function showModal(modalSize, modalTitle, modalSubTitle, modalIcon){
+        const htmlLoading2 = "<h2 class='text-center text-secondary'><i class='fas fa-spinner fa-spin'></i> Loading...</h2>";
+        try{
+            let removalClasses = "modal-sm modal-md modal-lg".replace(modalSize, "");
+            $("#Modal .modal-dialog").removeClass(removalClasses).addClass(modalSize);
+            $("#Modal .modal-title").html(`<i class="${modalIcon}</i> ${modalTitle} <small>${modalSubTitle}</small>"`);
+            $("#Modal .modal-body").html(htmlLoading2);
+            $("#Modal .modal-footer").html('<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>');
+            $("#Modal").modal("show");
+            return $("#Modal");
+
+        } catch (error){
+            console.log("error inside showModal()");
+        }
+    }
+
+    //this is the initialize method that goes into pageAccountDemographics
+    function pageAccountDemographicsInitialize(callback_onSaveSuccessful){
+        try{
+            $("#Demographics_PostalCode").inputmask({mask: "9999[-9999]", greedy: false});
+            $("#Demographics_CellPhone").inputmask("(999) 999-999");
+        } catch (error){}
+    }
+
+    function demographics(){
+        try{
+            $.ajax({
+                type: "GET",
+                url: "https://mobilea-patientportal.azurewebsites.net/Account/Demographics",
+            });
+        } catch(error){}
+    }
+
+
 })(pageAccountIndex || (pageAccountIndex={}));  
 pageAccountIndex.initialize();  

@@ -1,0 +1,82 @@
+<form id="Demographics_Form" method="post" class="row" data-bind="childrenComplete: onBindingComplete">
+	<section class="col">
+		<div class="form-row">
+			<div class="form-group col-sm">
+				<label>First Name</label>
+				<input type="text" data-bind="value: $data.firstName" class="form-control form-control-sm" readonly disabled />
+            </div>
+				<div class="form-group col-sm">
+					<label>Middle Name</label>
+					<input type="text" data-bind="value: $data.middleName" class="form-control form-control-sm" readonly disabled />
+            </div>
+					<div class="form-group col-sm">
+						<label>Last Name</label>
+						<input type="text" data-bind="value: $data.lastName" class="form-control form-control-sm" readonly disabled />
+            </div>
+					</div>
+					<div class="form-row">
+						<div class="form-group col-sm">
+							<label>Birth Date</label>
+							<input type="text" data-bind="value: moment($data.dob(), 'YYYY-MM-DD').format('MM/DD/YYYY')" class="form-control form-control-sm" readonly disabled />
+            </div>
+							<div class="form-group col-sm">
+								<label>Gender <i class="fa fa-asterisk text-danger"></i></label>
+								<select id="Demographics_Gender" data-bind="value: $data.gender, options: $data.lookups.genders, optionsCaption: ''" class="form-control form-control-sm demographics-editor" required autofocus></select>
+							</div>
+							<div class="form-group col-sm">
+								<label>Race</label>
+								<select data-bind="value: $data.race, options: $data.lookups.races, optionsCaption: ''" class="form-control form-control-sm demographics-editor"></select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label>Address 1 <i class="fa fa-asterisk text-danger"></i></label>
+							<input type="text" id="Demographics_Address1" data-bind="value: $data.address1" class="form-control form-control-sm demographics-editor" maxlength="150" required />
+        </div>
+							<div class="form-group">
+								<label>Address 2</label>
+								<input type="text" data-bind="value: $data.address2" class="form-control form-control-sm demographics-editor" />
+        </div>
+								<div class="form-row">
+									<div class="form-group col-md-3">
+										<label>State <i class="fa fa-asterisk text-danger"></i></label>
+										<select id="Demographics_State" data-bind="value: $data.state, options: $data.lookups.states, optionsValue: 'key', optionsText: 'value', optionsCaption: ''" class="form-control form-control-sm demographics-editor" required></select>
+									</div>
+									<div class="form-group col-md-6">
+										<label>City <i class="fa fa-asterisk text-danger"></i></label>
+										<input type="text" id="Demographics_City" data-bind="value: $data.city" class="form-control form-control-sm demographics-editor" maxlength="50" required />
+            </div>
+										<div class="form-group col-md-3">
+											<label for="PostalCode">Zip <i class="fa fa-asterisk text-danger"></i></label>
+											<input type="text" id="Demographics_PostalCode" data-bind="value: $data.postalCode" class="form-control form-control-sm demographics-editor" maxlength="11" required />
+            </div>
+										</div>
+	</section>
+	<section class="col">
+		<div class="form-group">
+			<label>Cell Phone <i class="fa fa-asterisk text-danger"></i></label>
+			<input type="tel" id="Demographics_CellPhone" data-bind="value: $data.cellPhone" class="form-control form-control-sm demographics-editor" required />
+        </div>
+			<div class="form-group">
+				<label>Home Phone</label>
+				<input type="tel" id="Demographics_HomePhone" data-bind="value: $data.homePhone" class="form-control form-control-sm demographics-editor" />
+        </div>
+				<div class="form-group">
+					<label>Work Phone</label>
+					<input type="tel" id="Demographics_WorkPhone" data-bind="value: $data.workPhone" class="form-control form-control-sm demographics-editor" />
+        </div>
+					<div class="form-group">
+						<label>Email</label>
+						<input type="email" id="Demographics_Email" data-bind="value: $data.email" class="form-control form-control-sm demographics-editor" />
+        </div>
+						<div class="form-group">
+							<label>Preferred Language</label>
+							<select data-bind="value: $data.preferredLanguage, options: $data.lookups.languages, optionsCaption: ''" class="form-control form-control-sm demographics-editor"></select>
+						</div>
+	</section>
+	<button type="submit" id="Demographics_Submit" class="demographics-editor" hidden></button>
+	<input name="__RequestVerificationToken" type="hidden" value="CfDJ8NiIjj4eAPFHnJsJpHIUYksNFB9Y2nhn0VteKJmLPqxJd8YbbrsZ_6LnEHv6JZZogCHk_M8LOyY1VxAQ9ipFlZW4cDRB7CmpBD2d8TmwjCSY9NFy0_3633TXSe5GmzYskzFpn8I6QX_9OirYShI6qSY" /></form>
+	<div class="text-right">
+		<small class="text-danger">
+        <i class="fa fa-asterisk"></i> Required Fields
+    </small>
+	</div>
