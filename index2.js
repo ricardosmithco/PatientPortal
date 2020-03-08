@@ -9,6 +9,8 @@ var pageAccountIndex;
     var chartNumber = sessionStorage.getItem("chartNumber");
     var caseId = sessionStorage.getItem("caseId");
     function initialize(){
+        // forcing environment to dev below:
+        $("body").addClass("MobileA_Dev");
         try{
             /* STEP 1. Bind the edit buttons and links: */
             $("#lnkEditDemographics").click((event) =>{
@@ -32,7 +34,7 @@ var pageAccountIndex;
             /* STEP 3. Get the Patient's Profile */
             profile(caseId)
             .then((profile) => {
-                console.log("profile is: "+profile);
+                console.log(profile);
                 /* STEP 4a: Create a new ViewModel based on the Profile.*/
                 viewModel = ko.mapping.fromJS(profile);
                 viewModel.onBindingComplete = onBindingComplete;
@@ -61,7 +63,7 @@ var pageAccountIndex;
      * @param error
      * @return void
      */
-    function onError(error){
+    function onKnockoutError(error){
         console.error("Knockout Error: ", error);
     }
 
@@ -83,6 +85,7 @@ var pageAccountIndex;
             let SubmitButtonId = "#Demographics_Submit";
             let editorCss = "demographics-editor";
             let modalElement = showModal("modal-lg", "PatientDemographics", "(Editor)", "fa fa-user-edit");
+            modalElement.find(".modal-header").html("Demographics");
             modalElement.find(".modal-footer button").addClass(editorCss);
             modalElement.find(".modal-body").load("demographics.html", (responseText, textStatus, jqXHR) =>{  
                 if(textStatus === "error"){
@@ -90,10 +93,19 @@ var pageAccountIndex;
                         return;
                 }
                 pageAccountDemographicsInitialize(onSave);
+                // Inject an html button (Update/Save) in to the modal-footer it is used to trigger form submission
+                let htmlButton = `<button type='button' id='btnModalSubmit' class='btn btn-primary${editorCss}' totle='Click to Save Changes'>Update</button>`
+                modalElement.find(".modal-footer").append(htmlButton);
+                $("#btnModalSubmit").click((event) =>{
+                    event.preventDefault();
+                    $("#btnFormSubmit").click();
+                });
 
             });
             
-        }catch (error){}
+        }catch (error){
+            console.error("error in showDemographics @ index2.js file");
+        }
     }
 
     
@@ -101,7 +113,7 @@ var pageAccountIndex;
 
     // ALL FUNCTIONS I HAVE TO REPLACE:
     
-    // function goes in account/index.js
+    // function goes in account/index.js NO, it goes in profile.js instead
     function profile(caseId){        
         return new Promise((resolve, reject) => {
             $.ajax({
@@ -109,8 +121,22 @@ var pageAccountIndex;
                 url: `${hostUrl}Profile/${caseId}`,
                 headers: { "x-functions-key": accessKey , "chart-number": chartNumber},
                 contentType: "application/json; charset=utf-8",
-                success: (result) =>{ resolve(result); console.log(result);},
+                success: (result) =>{ resolve(result);},
                 error: (error) => console.error("error on function profile")
+            });
+        });
+    }
+
+    //function goes in account/index.js
+    function profileLookups(caseId){
+        return new Promise( (resolve, reject) =>{
+            $.ajax({
+                type: "GET",
+                url: `${hostUrl}Profile/${caseId}/Lookups`,
+                headers: {"x-functions-key": accessKey, "chart-number": chartNumber},
+                contentType: "application/json; charset=utf-8",
+                success: (result) => resolve(result),
+                error: (error) => reject(error)
             });
         });
     }
@@ -135,19 +161,41 @@ var pageAccountIndex;
     //this is the initialize method that goes into pageAccountDemographics
     function pageAccountDemographicsInitialize(callback_onSaveSuccessful){
         try{
-            $("#Demographics_PostalCode").inputmask({mask: "9999[-9999]", greedy: false});
-            $("#Demographics_CellPhone").inputmask("(999) 999-999");
+            $("#Demographics_PostalCode").inputmask({mask: "99999[-9999]", greedy: false});
+            $("#Demographics_CellPhone").inputmask("(999) 999-9999");
+            $("#Demographics_HomePhone").inputmask("(999) 999-9999");
+            $("#Demographics_WorkPhone").inputmask("(999) 999-9999");
+            /* $("#Demographics_Form").validate({
+                errorClass: "is-invalid",
+                validClass: null,
+                rules:{
+                    Demographics_Address1: { required: true, minlength: 5},
+                    Demographics_City: {required: true, minLength: 3},
+                    Demographics_CellPhone: { required: true, phoneUS: true}
+                },
+                submitHandler: () =>{
+                    event.preventDefault();
+                    save();
+                }
+            }) */
+
+            Promise.all([profile(caseId), profileLookups(caseId)]).then((results)=>{
+                /* STEP 4a: Create a new ViewModel based on the Profile and ProfileLookups*/
+                viewModel = ko.mapping.fromJS(results[0].demographics);
+                viewModel.caseId = results[0].caseId;
+                viewModel.chartNumber = results[0].chartNumber;
+                viewModel.lookups = ko.mapping.fromJS(results[1]);
+                viewModel.onBindingComplete = () => $("#Demographics_Gender").focus();
+                /* STEP 4b: Apply KO Bindings to the ViewModel. */
+                ko.applyBindings(viewModel, $("#Demographics_Form")[0]);
+                /* STEP 5: Set focus to FirstName */
+                $("#Demographics_Gender").focus();
+            });
+
         } catch (error){}
     }
 
-    function demographics(){
-        try{
-            $.ajax({
-                type: "GET",
-                url: "https://mobilea-patientportal.azurewebsites.net/Account/Demographics",
-            });
-        } catch(error){}
-    }
+
 
 
 })(pageAccountIndex || (pageAccountIndex={}));  
