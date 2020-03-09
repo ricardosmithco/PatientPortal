@@ -3,13 +3,13 @@ var caseId = sessionStorage.getItem("caseId");
 var accessKey = sessionStorage.getItem("accessKey");
 var chartNumber = sessionStorage.getItem("chartNumber");
 var patientName = sessionStorage.getItem("patientName");
+var environment = sessionStorage.getItem("environment");
 
 function onInitialization(){
     $("#mnuPatient").html(patientName);
     $("#SiteNavigation").show();
-    var environment = sessionStorage.getItem("environment");
-    // forcing environment to dev below:
-    $("body").addClass("MobileA_Dev");
+    // setting environment below:
+    $("body").addClass(environment);
     $.ajax({
             url: hostUrl+"CaseInformation/"+caseId,
             async: false,

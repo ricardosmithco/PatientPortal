@@ -71,8 +71,8 @@ function setEnvironment(callback){
             contentType: "application/json; charset=utf-8",
             success: function(result){
                 sessionStorage.setItem("environment", result);
-                // setting the environment to dev, although api get "MobileA"
-                $("body").addClass("MobileA_Dev");
+                // setting the environment 
+                $("body").addClass(result);
                 // If a callback function was provided then use it.
                 if(typeof callback === "function"){
                     callback(result);

@@ -8,9 +8,10 @@ var pageAccountIndex;
     var accessKey = sessionStorage.getItem("accessKey");
     var chartNumber = sessionStorage.getItem("chartNumber");
     var caseId = sessionStorage.getItem("caseId");
+    var environment = sessionStorage.getItem("environment");
     function initialize(){
         // forcing environment to dev below:
-        $("body").addClass("MobileA_Dev");
+        $("body").addClass(environment);
         try{
             /* STEP 1. Bind the edit buttons and links: */
             $("#lnkEditDemographics").click((event) =>{
