@@ -1,5 +1,5 @@
 var hostUrl = "https://mobilea-patientportal-api-dev.azurewebsites.net/api/";
-var caseId = 224469; 
+var caseId = 224045; 
 
 function getPatientName(accessKey, caseId, chartNumber, callback){
     $.ajax({

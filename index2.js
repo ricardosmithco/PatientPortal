@@ -9,9 +9,11 @@ var pageAccountIndex;
     var chartNumber = sessionStorage.getItem("chartNumber");
     var caseId = sessionStorage.getItem("caseId");
     var environment = sessionStorage.getItem("environment");
+    var patientName = sessionStorage.getItem("patientName");
     function initialize(){
         // forcing environment to dev below:
         $("body").addClass(environment);
+        $("#mnuPatient").html(patientName);
         try{
             /* STEP 1. Bind the edit buttons and links: */
             $("#lnkEditDemographics").click((event) =>{
@@ -166,7 +168,7 @@ var pageAccountIndex;
             $("#Demographics_CellPhone").inputmask("(999) 999-9999");
             $("#Demographics_HomePhone").inputmask("(999) 999-9999");
             $("#Demographics_WorkPhone").inputmask("(999) 999-9999");
-            /* $("#Demographics_Form").validate({
+            $("#Demographics_Form").validate({
                 errorClass: "is-invalid",
                 validClass: null,
                 rules:{
@@ -178,7 +180,7 @@ var pageAccountIndex;
                     event.preventDefault();
                     save();
                 }
-            }) */
+            }) 
 
             Promise.all([profile(caseId), profileLookups(caseId)]).then((results)=>{
                 /* STEP 4a: Create a new ViewModel based on the Profile and ProfileLookups*/
@@ -194,6 +196,28 @@ var pageAccountIndex;
             });
 
         } catch (error){}
+    }
+
+    function save(){
+        try{
+            /*first let's validate the form*/
+            let isValid = $("#Demographics_Form").validate().valid();
+            if(!isValid){
+                return;
+            }
+            /*Disable the editor*/
+            enableDisableEditor(false);
+            /* STEP 1a: Convert the KO ViewModel into JSON  */
+            let postData = JSON.parse(ko.toJSON(viewModel));
+            /* STEP 1b: Remove unneeded properties (arrays) */
+            delete postData.lookups;
+            /*show unimposing Successage Message*/
+            toaster.success("Update Successful");
+            /*Dismiss the modal dialog*/
+            $("#Modal").modal("hide");
+        }catch (error){
+            console.error("error in save() method");
+        }
     }
 
 
