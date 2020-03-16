@@ -1,7 +1,7 @@
-var hostUrl = "https://mobilea-patientportal-api-dev.azurewebsites.net/api/";
-var caseId = 222571; 
-var accessKey = "A2H/Qa2n70XZtta7zFYpq4P6UtbAWISn8upCMqVPOxBWHyx51Xkylw==";
-var chartNumber = 850628090;
+var hostUrl = "https://mobilea-patientportal-api.azurewebsites.net/api/";
+var caseId = 225902; 
+var accessKey = "W9tkZiYMaosc4Daaw1JtpFSE/JPZHyNyaeARzmK6De9Div5qLwtxlA==";
+var chartNumber = 924127331;
 var viewModel;
 
 function initialize(){
@@ -18,9 +18,9 @@ initialize();
 function returnQuestionnaireData(){
     try{
         Promise.all([Questionnaire(), lookupQuestionType()]).then((result)=>{
-            viewModel = ko.mapping.fromJSON()
             console.info(result[0]);
             console.info(result[1]);
+           viewModel = ko.mapping.fromJSON(result[0]);
         });
 
     }catch(error){

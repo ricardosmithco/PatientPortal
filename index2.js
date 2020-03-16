@@ -183,6 +183,7 @@ var pageAccountIndex;
             }) 
 
             Promise.all([profile(caseId), profileLookups(caseId)]).then((results)=>{
+                console.log(results);
                 /* STEP 4a: Create a new ViewModel based on the Profile and ProfileLookups*/
                 viewModel = ko.mapping.fromJS(results[0].demographics);
                 viewModel.caseId = results[0].caseId;
