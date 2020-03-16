@@ -8,19 +8,20 @@
 
 <body>
     <main>
+
         <div class="jumbotron">
             <div class="accordion" id="accordionExample">
                 <div data-bind="foreach: $data.categories" class="card">
                     <div class="card-header" id="headingOne">
                         <h2 class="mb-0">
-                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne"
-                                aria-expanded="true" aria-controls="collapseOne">
-                                <!--ko text: $data.categoryShortName--> <!-- /ko -->
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-bind="attr: {'data-target': '#collapse' + categoryShortName}"
+                                aria-expanded="true" data-bind="attr: {'aria-controls': 'collapse'+categoryShortName}">
+                                <!--ko text: $data.categoryShortName--><!-- /ko --> <br>
                             </button>
                         </h2>
                     </div>
 
-                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                    <div data-bind="attr: {id: 'collapse' + categoryShortName}" class="collapse show" aria-labelledby="headingOne"
                         data-parent="#accordionExample">
                         <div class="card-body">
                             Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
