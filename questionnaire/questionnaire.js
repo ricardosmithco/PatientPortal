@@ -5,9 +5,11 @@ var chartNumber = 924127331;
 var viewModel;
 
 function initialize(){
+    
     try{
         returnQuestionnaireData();
-
+        $(".datepicker").datepicker({clearBtn: true, autoclose: true});
+        $("#Date").inputmask("99/99/9999");
     }catch(error){
         console.log("error in questionnaire initialization");
     }
@@ -20,7 +22,7 @@ function returnQuestionnaireData(){
         Promise.all([Questionnaire(), lookupQuestionType()]).then((result)=>{
             console.info(result[0]);
             console.info(result[1]);
-           //viewModel = ko.mapping.fromJSON(result[0]);
+            //viewModel = ko.mapping.fromJSON(result[0]);
            ko.applyBindings(result);
         });
 

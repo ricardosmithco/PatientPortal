@@ -26,10 +26,15 @@
                     <div data-bind="attr: {id: 'collapse' + categoryShortName}" class="collapse show"
                         data-bind="attr: {'aria-labelledby': categoryName}" data-parent="#accordionExample">
                         <div class="card-body">
+                            
                             <ul data-bind="foreach: $data.questions">
                                 <li data-bind="template: {name: 'questionType' + $data.questionTypeId}">
                                 </li>
                             </ul>
+
+                            <ol data-bind="foreach: $data.subcategories">
+                                <li> <!--ko text: $data.subcategoryName--><!--/ko--> </li>
+                            </ol>
                         </div>
                     </div>
                 </div>
@@ -39,31 +44,17 @@
     </main>
     <footer></footer>
     <template id="questionType1">
-        <label data-bind="text: $data.questionText"></label>
-
-        <div class="input-group">
-            <div class="input-group-prepend">
-              <div class="input-group-text">
-                  <label>Yes</label>
-                <input type="radio" aria-label="Radio button for following text input">
-              </div>
-            </div>
-            <input type="text" class="form-control" aria-label="Text input with radio button">
-          </div>
-
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <div class="input-group-text">
-                <label>No</label>
-                <input type="radio" aria-label="Radio button for following text input">
-              </div>
-            </div>
-            <input type="text" class="form-control" aria-label="Text input with radio button">
-          </div>
+        <label data-bind="text: $data.questionText"></label><br>
+        <input type="radio">
+        <label>Yes</label><br>
+        <input type="radio">
+        <label>No</label>
     </template>
     <template id="questionType2">
-        <label data-bind="text: $data.questionText"></label>
-        <input data-bind="value: $data.questionValue" class="form-control" type="text" />
+        <div>
+            <label data-bind="text: $data.questionText" for="Date"></label>
+            <input id="Date" data-provide="datepicker" type="text" inputmode="text" autocomplete="off">
+        </div>
     </template>
     <template id="questionType3">
         <label data-bind="text: $data.questionText"></label>
@@ -109,13 +100,15 @@
         <label data-bind="text: $data.questionText"></label>
         <input data-bind="value: $data.questionValue" class="form-control" type="text" />
     </template>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.4.1/knockout.mapping.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="//cdn.jsdelivr.net/gh/RobinHerbots/jquery.inputmask@5.0.4-beta.8/dist/jquery.inputmask.min.js">
+    </script>
     <script src="//stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="questionnaire.js"></script>
 </body>
 
