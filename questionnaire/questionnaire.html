@@ -11,34 +11,104 @@
 
         <div class="jumbotron">
             <div class="accordion" id="accordionExample">
-                <div data-bind="foreach: $data.categories" class="card">
-                    <div class="card-header" id="headingOne">
+                <div data-bind="foreach: $data[0].categories" class="card">
+                    <div class="card-header" data-bind="attr:{id: categoryName}">
                         <h2 class="mb-0">
-                            <button class="btn btn-link" type="button" data-toggle="collapse" data-bind="attr: {'data-target': '#collapse' + categoryShortName}"
-                                aria-expanded="true" data-bind="attr: {'aria-controls': 'collapse'+categoryShortName}">
-                                <!--ko text: $data.categoryShortName--><!-- /ko --> <br>
+                            <button class="btn btn-link" type="button" data-toggle="collapse"
+                                data-bind="attr: {'data-target': '#collapse' + categoryShortName}" aria-expanded="true"
+                                data-bind="attr: {'aria-controls': 'collapse'+ categoryShortName}">
+                                <!--ko text: $data.categoryShortName-->
+                                <!-- /ko --> <br>
                             </button>
                         </h2>
                     </div>
 
-                    <div data-bind="attr: {id: 'collapse' + categoryShortName}" class="collapse show" aria-labelledby="headingOne"
-                        data-parent="#accordionExample">
+                    <div data-bind="attr: {id: 'collapse' + categoryShortName}" class="collapse show"
+                        data-bind="attr: {'aria-labelledby': categoryName}" data-parent="#accordionExample">
                         <div class="card-body">
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
-                            3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt
-                            laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin
-                            coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes
-                            anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings
-                            occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard
-                            of them accusamus labore sustainable VHS.
+                            <ul data-bind="foreach: $data.questions">
+                                <li data-bind="template: {name: 'questionType' + $data.questionTypeId}">
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
-                
+
             </div>
-        </div>    
+        </div>
     </main>
     <footer></footer>
+    <template id="questionType1">
+        <label data-bind="text: $data.questionText"></label>
+
+        <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                  <label>Yes</label>
+                <input type="radio" aria-label="Radio button for following text input">
+              </div>
+            </div>
+            <input type="text" class="form-control" aria-label="Text input with radio button">
+          </div>
+
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <label>No</label>
+                <input type="radio" aria-label="Radio button for following text input">
+              </div>
+            </div>
+            <input type="text" class="form-control" aria-label="Text input with radio button">
+          </div>
+    </template>
+    <template id="questionType2">
+        <label data-bind="text: $data.questionText"></label>
+        <input data-bind="value: $data.questionValue" class="form-control" type="text" />
+    </template>
+    <template id="questionType3">
+        <label data-bind="text: $data.questionText"></label>
+        <input data-bind="value: $data.questionValue" class="form-control" type="text" />
+    </template>
+    <template id="questionType4">
+        <label data-bind="text: $data.questionText"></label>
+        <input data-bind="value: $data.questionValue" class="form-control" type="text" />
+    </template>
+    <template id="questionType5">
+        <label data-bind="text: $data.questionText"></label>
+        <input data-bind="value: $data.questionValue" class="form-control" type="text" />
+    </template>
+    <template id="questionType6">
+        <label data-bind="text: $data.questionText"></label>
+        <input data-bind="value: $data.questionValue" class="form-control" type="text" />
+    </template>
+    <template id="questionType7">
+        <label data-bind="text: $data.questionText"></label>
+        <input data-bind="value: $data.questionValue" class="form-control" type="text" />
+    </template>
+    <template id="questionType8">
+        <label data-bind="text: $data.questionText"></label>
+        <input data-bind="value: $data.questionValue" class="form-control" type="text" />
+    </template>
+    <template id="questionType9">
+        <label data-bind="text: $data.questionText"></label>
+        <input data-bind="value: $data.questionValue" class="form-control" type="text" />
+    </template>
+    <template id="questionType10">
+        <label data-bind="text: $data.questionText"></label>
+        <input data-bind="value: $data.questionValue" class="form-control" type="text" />
+    </template>
+    <template id="questionType11">
+        <label data-bind="text: $data.questionText"></label>
+        <input data-bind="value: $data.questionValue" class="form-control" type="text" />
+    </template>
+    <template id="questionType12">
+        <label data-bind="text: $data.questionText"></label>
+        <input data-bind="value: $data.questionValue" class="form-control" type="text" />
+    </template>
+    <template id="questionType13">
+        <label data-bind="text: $data.questionText"></label>
+        <input data-bind="value: $data.questionValue" class="form-control" type="text" />
+    </template>
     <script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.4.1/knockout.mapping.min.js"></script>

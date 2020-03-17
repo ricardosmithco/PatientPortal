@@ -19,9 +19,9 @@ function returnQuestionnaireData(){
     try{
         Promise.all([Questionnaire(), lookupQuestionType()]).then((result)=>{
             console.info(result[0]);
-            //console.info(result[1]);
+            console.info(result[1]);
            //viewModel = ko.mapping.fromJSON(result[0]);
-           ko.applyBindings(result[0]);
+           ko.applyBindings(result);
         });
 
     }catch(error){
