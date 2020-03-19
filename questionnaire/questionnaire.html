@@ -15,10 +15,8 @@
                     <div class="card-header" data-bind="attr:{id: categoryName}">
                         <h2 class="mb-0">
                             <button class="btn btn-link" type="button" data-toggle="collapse"
-                                data-bind="attr: {'data-target': '#collapse' + categoryShortName}" aria-expanded="true"
-                                data-bind="attr: {'aria-controls': 'collapse'+ categoryShortName}">
-                                <!--ko text: $data.categoryShortName-->
-                                <!-- /ko --> <br>
+                                data-bind="attr: {'data-target': '#collapse' + categoryShortName, 'aria-expanded': $index==0}">
+                                <!--ko text: $data.categoryShortName--><!-- /ko -->
                             </button>
                         </h2>
                     </div>
@@ -28,13 +26,15 @@
                         <div class="card-body">
                             
                             <ul data-bind="foreach: $data.questions">
-                                <li data-bind="template: {name: 'questionType' + $data.questionTypeId}">
-                                </li>
+                                <li data-bind="template: {name: 'questionType' + $data.questionTypeId}"></li>
                             </ul>
+                            <div data-bind="foreach: $data.subcategories">
+                                <h5>SUBCATEGORY:</h5><!--ko text: $data.subcategoryName--><!--/ko-->
+                                <ol data-bind="foreach: $data.questions">
+                                    <li data-bind="template: {name: 'questionType' + $data.questionTypeId}"></li>
+                                </ol>
+                            </div>
 
-                            <ol data-bind="foreach: $data.subcategories">
-                                <li> <!--ko text: $data.subcategoryName--><!--/ko--> </li>
-                            </ol>
                         </div>
                     </div>
                 </div>
@@ -44,33 +44,41 @@
     </main>
     <footer></footer>
     <template id="questionType1">
-        <label data-bind="text: $data.questionText"></label><br>
-        <input type="radio">
-        <label>Yes</label><br>
-        <input type="radio">
-        <label>No</label>
+        <form>
+            <label data-bind="text: $data.questionText"></label><br>
+            <select data-bind="foreach: $data.lookup">
+                <option data-bind="text: $data.questionLookupText, value: $data.questionValue"></option> 
+                <option selected disabled hidden>Choose</option>   
+            </select>
+        </form>
     </template>
     <template id="questionType2">
-        <div>
+        <form>
             <label data-bind="text: $data.questionText" for="Date"></label>
-            <input id="Date" data-provide="datepicker" type="text" inputmode="text" autocomplete="off">
-        </div>
+            <input data-bind="$data.questionValue" class="form-control" type="date" autocomplete="off" />
+        </form>
     </template>
     <template id="questionType3">
         <label data-bind="text: $data.questionText"></label>
-        <input data-bind="value: $data.questionValue" class="form-control" type="text" />
+        <select data-bind="foreach: $data.lookup">
+            <option data-bind="text: $data.questionLookupText, value: $data.questionValue"></option> 
+            <option selected disabled hidden>Choose</option>   
+        </select>
     </template>
     <template id="questionType4">
         <label data-bind="text: $data.questionText"></label>
-        <input data-bind="value: $data.questionValue" class="form-control" type="text" />
+        <div data-bind="foreach: $data.lookup">
+            <label data-bind="text: $data.questionLookupText"></label>
+            <input data-bind="attr: {'type': 'checkbox'}, value: $data.questionValue"/><br>
+        </div>
     </template>
     <template id="questionType5">
         <label data-bind="text: $data.questionText"></label>
-        <input data-bind="value: $data.questionValue" class="form-control" type="text" />
+        <input data-bind="value: $data.questionValue" class="form-control" type="number" />
     </template>
     <template id="questionType6">
         <label data-bind="text: $data.questionText"></label>
-        <input data-bind="value: $data.questionValue" class="form-control" type="text" />
+        <input data-bind="value: $data.questionValue" class="form-control" type="number" />
     </template>
     <template id="questionType7">
         <label data-bind="text: $data.questionText"></label>
@@ -94,7 +102,7 @@
     </template>
     <template id="questionType12">
         <label data-bind="text: $data.questionText"></label>
-        <input data-bind="value: $data.questionValue" class="form-control" type="text" />
+        <textarea data-bind="value: $data.questionValue" class="form-control" rows="4" maxlength="254"></textarea>
     </template>
     <template id="questionType13">
         <label data-bind="text: $data.questionText"></label>
@@ -104,9 +112,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.4.1/knockout.mapping.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
-    <script src="//cdn.jsdelivr.net/gh/RobinHerbots/jquery.inputmask@5.0.4-beta.8/dist/jquery.inputmask.min.js">
-    </script>
+    <script src="//cdn.jsdelivr.net/gh/RobinHerbots/jquery.inputmask@5.0.4-beta.8/dist/jquery.inputmask.min.js"></script>
     <script src="//stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="questionnaire.js"></script>

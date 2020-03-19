@@ -8,8 +8,6 @@ function initialize(){
     
     try{
         returnQuestionnaireData();
-        $(".datepicker").datepicker({clearBtn: true, autoclose: true});
-        $("#Date").inputmask("99/99/9999");
     }catch(error){
         console.log("error in questionnaire initialization");
     }
