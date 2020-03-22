@@ -2,23 +2,27 @@
 <html>
 
 <head>
-    <link href="//stackpath.bootstrapcdn.com/bootswatch/4.4.1/spacelab/bootstrap.min.css">
-    <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootswatch/4.4.1/spacelab/bootstrap.min.css">
-    <link rel="stylesheet" href="questionnaire.css">
+    <link href="//stackpath.bootstrapcdn.com/bootswatch/4.4.1/spacelab/bootstrap.min.css"/>
+    <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootswatch/4.4.1/spacelab/bootstrap.min.css"/>
+    <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="questionnaire.css"/>
 </head>
 
 <body>
-    <div class="header">
-        <h2>Questionnaire Progress</h2>
-        <div class="progress-container">
-            <div class="progress-bar" id="myBar"></div>
-        </div>
-    </div>
     <main>
-
-        <div class="jumbotron">
+        <h3 id="Loading" class="text-secondary" style="display: none;">
+            <i class="fa fa-spinner fa-spin"></i>
+            <span id="LoadingMessage">Loading Questionnaire</span>
+        </h3>
+        <div id="MedicalHistory" class="jumbotron" data-bind="childrenComplete: onBindingComplete" style="display: none">
+            <div class="header">
+                <h2>Questionnaire Progress</h2>
+                <div class="progress-container">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" id="myBar"></div>
+                </div>
+            </div>
             <div class="accordion" id="accordionExample">
-                <div data-bind="foreach: $data[0].categories" class="card">
+                <div data-bind="foreach: $data.categories" class="card">
                     <div class="card-header" data-bind="attr:{id: categoryName}">
                         <h2 class="mb-0">
                             <button class="btn btn-link" type="button" data-toggle="collapse"
@@ -34,14 +38,13 @@
                         <div class="card-body">
 
                             <ul data-bind="foreach: $data.questions">
-                                <li data-bind="template: {name: 'questionType' + $data.questionTypeId}"></li>
+                                <li data-bind="template: {name: 'questionType' + $data.questionTypeId()}"></li>
                             </ul>
                             <div data-bind="foreach: $data.subcategories">
-                                <hr>
-                                <!--ko text: $data.subcategoryName-->
-                                <!--/ko-->
+                                <h3 data-bind="text: $data.subcategoryName"></h3>
+
                                 <ol data-bind="foreach: $data.questions">
-                                    <li data-bind="template: {name: 'questionType' + $data.questionTypeId}"></li>
+                                    <li data-bind="template: {name: 'questionType' + $data.questionTypeId()}"></li>
                                 </ol>
                             </div>
 
@@ -55,10 +58,13 @@
     <footer></footer>
     <template id="questionType1">
         <div class="form-group">
-            <label data-bind="text: $data.questionText"></label>
-            <select data-bind="foreach: $data.lookup" class="form-control">
+            <label>
+                <i class="fa fa-asterisk text-danger" data-bind="visible: $data.required"></i>
+                <!--ko text: $data.questionText--><!--/ko-->
+            </label>
+            <select data-bind="foreach: $data.lookup, attr: {required: $data.required, id: 'Q' + $data.questionId}" class="form-control">
                 <option
-                    data-bind="text: $data.questionLookupText, value: $data.questionValue, attr: {id: 'Q' + $data.questionId}">
+                    data-bind="text: $data.questionLookupText, value: $data.questionValue">
                 </option>
                 <option selected disabled hidden>Choose</option>
             </select>
@@ -67,16 +73,15 @@
     <template id="questionType2">
         <div class="form-group">
             <label data-bind="text: $data.questionText" for="Date"></label>
-            <input data-bind="$data.questionValue, attr: {id: 'Q' + $data.questionId}" class="form-control" type="date"
-                autocomplete="off" />
+            <input data-bind="$data.questionValue, attr: {id: 'Q' + $data.questionId()}" class="form-control" type="date" autocomplete="off" />
         </div>
     </template>
     <template id="questionType3">
         <div class="form-group">
-            <label data-bind="text: $data.questionText"></label>
+            <label data-bind="text: $data.questionText, attr: {id: 'Q' + $data.questionId()}"></label>
             <select class="form-control" data-bind="foreach: $data.lookup">
                 <option
-                    data-bind="text: $data.questionLookupText, value: $data.questionValue, attr: {id: 'Q' + $data.questionId}">
+                    data-bind="text: $data.questionLookupText, value: $data.questionValue">
                 </option>
                 <option selected disabled hidden>Choose</option>
             </select>
@@ -84,11 +89,11 @@
     </template>
     <template id="questionType4">
         <div class="form-group">
-            <label data-bind="text: $data.questionText"></label>
+            <label data-bind="text: $data.questionText, attr: {id: 'Q' + $data.questionId()}"></label>
             <!--ko foreach: $data.lookup-->
             <div class="form-check">
+                <label data-bind="text: $data.questionLookupText"></label>
                 <input type="checkbox" data-bind="value: $data.questionValue" />
-                <label data-bind="text: $data.questionLookupText, attr: {id: 'Q' + $data.questionId}"></label>
             </div>
             <!--/ko-->
         </div>
@@ -96,63 +101,60 @@
     <template id="questionType5">
         <div class="form-group">
             <label data-bind="text: $data.questionText"></label>
-            <input data-bind="value: $data.questionValue, attr: {id: 'Q' + $data.questionId}" class="form-control"
-                type="number" />
+            <input data-bind="value: $data.questionValue, attr: {id: 'Q' + $data.questionId()}" class="form-control"
+                type="number" minlength="0" />
         </div>
     </template>
     <template id="questionType6">
         <div class="form-group">
             <label data-bind="text: $data.questionText"></label>
-            <input data-bind="value: $data.questionValue" class="form-control" type="number" />
+            <input data-bind="value: $data.questionValue, attr: {id: 'Q' + $data.questionId()}" class="form-control me" type="number" minlength="0"/>
         </div>
     </template>
     <template id="questionType7">
         <div class="form-group">
             <label data-bind="text: $data.questionText"></label>
-            <input data-bind="value: $data.questionValue, attr: {id: 'Q' + $data.questionId}" class="form-control"
+            <input data-bind="value: $data.questionValue, attr: {id: 'Q' + $data.questionId()}" class="form-control"
                 type="text" />
         </div>
     </template>
     <template id="questionType8">
         <div class="form-group">
             <label data-bind="text: $data.questionText"></label>
-            <input data-bind="value: $data.questionValue, attr: {id: 'Q' + $data.questionId}" class="form-control"
-                type="text" />
+            <input data-bind="value: $data.questionValue, attr: {id: 'Q' + $data.questionId()}" class="form-control" type="text" />
         </div>
     </template>
     <template id="questionType9">
-        <div class="form-control">
-            <div class="form-group">
-                <label data-bind="text: $data.questionText"></label>
-                <input data-bind="value: $data.questionValue, attr: {id: 'Q' + $data.questionId}" class="form-control"
-                    type="text" />
-            </div>
+        <div class="form-group">
+            <label data-bind="text: $data.questionText"></label>
+            <input data-bind="value: $data.questionValue, attr: {id: 'Q' + $data.questionId()}" class="form-control"
+                type="text" />
         </div>
     </template>
     <template id="questionType10">
         <div class="form-group">
             <label data-bind="text: $data.questionText"></label>
-            <input data-bind="value: $data.questionValue, attr: {id: 'Q' + $data.questionId}" class="form-control"
+            <input data-bind="value: $data.questionValue, attr: {id: 'Q' + $data.questionId()}" class="form-control"
                 type="text" />
         </div>
     </template>
     <template id="questionType11">
         <div class="form-group">
             <label data-bind="text: $data.questionText"></label>
-            <input data-bind="value: $data.questionValue" class="form-control" type="text" />
+            <input data-bind="value: $data.questionValue, attr: {id: 'Q' + $data.questionId()}" class="form-control" type="text" />
         </div>
     </template>
     <template id="questionType12">
         <div class="form-group">
             <label data-bind="text: $data.questionText"></label>
-            <textarea data-bind="value: $data.questionValue, attr: {id: 'Q' + $data.questionId}" class="form-control"
+            <textarea data-bind="value: $data.questionValue, attr: {id: 'Q' + $data.questionId()}" class="form-control"
                 rows="4" maxlength="254"></textarea>
         </div>
     </template>
     <template id="questionType13">
         <div class="form-group">
             <label data-bind="text: $data.questionText"></label>
-            <input data-bind="value: $data.questionValue, attr: {id: 'Q' + $data.questionId}" class="form-control"
+            <input data-bind="value: $data.questionValue, attr: {id: 'Q' + $data.questionId()}" class="form-control"
                 type="text" />
         </div>
     </template>
@@ -160,10 +162,10 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.4.1/knockout.mapping.min.js"></script>
-    <script src="//cdn.jsdelivr.net/gh/RobinHerbots/jquery.inputmask@5.0.4-beta.8/dist/jquery.inputmask.min.js">
-    </script>
     <script src="//stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="//cdn.jsdelivr.net/gh/RobinHerbots/jquery.inputmask@5.0.4-beta.8/dist/jquery.inputmask.min.js"></script>
     <script src="questionnaire.js"></script>
 </body>
 
