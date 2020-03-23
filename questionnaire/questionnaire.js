@@ -28,8 +28,8 @@ function lookupQuestionType() {
 }
 
 function onBindingComplete(){
+    $('input[name="decimal"]').mask('9.99');
     $("#Loading").hide();
-    $("#Q77").inputmask("9.9");
     $("#MedicalHistory").show();
 }
 

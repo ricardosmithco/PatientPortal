@@ -59,15 +59,21 @@
     <template id="questionType1">
         <div class="form-group">
             <label>
-                <i class="fa fa-asterisk text-danger" data-bind="visible: $data.required"></i>
+                <i class="fa fa-asterisk text-danger" data-bind="visible: $data.required, evaluateData()"></i>
                 <!--ko text: $data.questionText--><!--/ko-->
             </label>
-            <select data-bind="foreach: $data.lookup, attr: {required: $data.required, id: 'Q' + $data.questionId}" class="form-control">
+            <select data-bind="foreach: $data.lookup, attr: {required: $data.required, id: 'Q' + $data.questionId()}, value: $data.questionValue" class="form-control">
                 <option
-                    data-bind="text: $data.questionLookupText, value: $data.questionValue">
+                    data-bind="text: $data.questionLookupText, value: $data.questionLookupValue">
                 </option>
-                <option selected disabled hidden>Choose</option>
+                <option value="" hidden>Choose</option>
             </select>
+            <!--ko foreach: $data.conditionalInfo-->
+                <div data-bind="visible: $parent.questionValue()==$data.dependencyValue()">
+                    <i class="fa fa-exclamation-triangle text-warning"></i>
+                    <!--ko text: $data.message--><!--/ko-->
+                </div>
+            <!--/ko-->
         </div>
     </template>
     <template id="questionType2">
@@ -102,13 +108,13 @@
         <div class="form-group">
             <label data-bind="text: $data.questionText"></label>
             <input data-bind="value: $data.questionValue, attr: {id: 'Q' + $data.questionId()}" class="form-control"
-                type="number" minlength="0" />
+                type="number" min="3" maxlength="1000"/>
         </div>
     </template>
     <template id="questionType6">
         <div class="form-group">
             <label data-bind="text: $data.questionText"></label>
-            <input data-bind="value: $data.questionValue, attr: {id: 'Q' + $data.questionId()}" class="form-control me" type="number" minlength="0"/>
+            <input data-bind="value: $data.questionValue, attr: {id: 'Q' + $data.questionId()}" class="form-control" minlength="0" name="decimal"/>
         </div>
     </template>
     <template id="questionType7">
@@ -166,6 +172,7 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="//cdn.jsdelivr.net/gh/RobinHerbots/jquery.inputmask@5.0.4-beta.8/dist/jquery.inputmask.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
     <script src="questionnaire.js"></script>
 </body>
 
