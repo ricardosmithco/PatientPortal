@@ -3,9 +3,14 @@
     background-size: cover
   }
 
-button hover {
+#MedicalHistory button:hover {
+  font-weight: bold;
   cursor: pointer;
 }  
+
+#MedicalHistory label{
+  color: #3399f3;
+}
 
 .header {
     position: fixed;

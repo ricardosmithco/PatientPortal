@@ -14,6 +14,8 @@
             <i class="fa fa-spinner fa-spin"></i>
             <span id="LoadingMessage">Loading Questionnaire</span>
         </h3>
+        <!--the below data-bind executes the onBindingComplete() function once all binding has finished!,
+        and gives control back over to the javascript-->
         <div id="MedicalHistory" class="jumbotron" data-bind="childrenComplete: onBindingComplete"
             style="display: none">
             <div class="header">
@@ -70,8 +72,9 @@
                 <option data-bind="value: $data.questionLookupValue, text: $data.questionLookupText"></option>
                 <!--/ko-->
             </select>
+            <!--Now we loop through conditional info and determine if we should -->
             <!--ko foreach: $data.conditionalInfo-->
-            <div class="alert alert-info mt-2" data-bind="visible: $parent.questionValue()==$data.dependencyValue()">
+            <div class="alert alert-info mt-3" data-bind="visible: $parent.questionValue()==$data.dependencyValue()">
                 <i class="fa fa-exclamation-triangle text-warning"></i>
                 <!--ko text: $data.message-->
                 <!--/ko-->
@@ -183,6 +186,7 @@
     </template>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+    <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.min.js"></script>
