@@ -3,6 +3,10 @@
     background-size: cover
   }
 
+button hover {
+  cursor: pointer;
+}  
+
 .header {
     position: fixed;
     top: 0;
