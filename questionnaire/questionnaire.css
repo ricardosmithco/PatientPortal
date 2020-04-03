@@ -6,11 +6,12 @@
 #MedicalHistory button:hover {
   font-weight: bold;
   cursor: pointer;
+  color: #3399f3;
 }  
 
-#MedicalHistory label{
-  color: #3399f3;
-}
+#MedicalHistory select:hover, textarea:hover, input:hover{
+  border-color: #3399f3;
+} 
 
 .header {
     position: fixed;

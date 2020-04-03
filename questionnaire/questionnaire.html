@@ -17,7 +17,7 @@
         <!--the below data-bind executes the onBindingComplete() function once all binding has finished!,
         and gives control back over to the javascript-->
         <div id="MedicalHistory" class="jumbotron" data-bind="childrenComplete: onBindingComplete"
-            style="display: none">
+             style="display: none">
             <div class="header">
                 <h2>Questionnaire Progress</h2>
                 <div class="progress-container">
@@ -30,43 +30,45 @@
                     <div class="card-header" data-bind="attr:{id: 'categoryName' + $data.categoryId()}">
                         <h2 class="mb-0">
                             <button class="btn btn-link" type="button" data-toggle="collapse"
-                                data-bind="attr: {'data-target': '#category' + $data.categoryId(), 'aria-controls': 'category' + $data.categoryId()}">
+                                    data-bind="attr: {'data-target': '#category' + $data.categoryId(), 'aria-controls': 'category' + $data.categoryId()}">
                                 <!--ko text: $data.categoryShortName-->
                                 <!-- /ko -->
                             </button>
                         </h2>
                     </div>
 
-                    <div data-bind="attr: {id: 'category'+$data.categoryId(), 'aria-labelledby': 'categoryName' + $data.categoryId()}" class="collapse" data-parent="#accordionExample"> <!-- 'class': $data.collapseShow($index); inject this function into viewModel, then define this method-->
+                    <form data-bind="attr: {id: 'category'+$data.categoryId(), 'aria-labelledby': 'categoryName' + $data.categoryId()}" class="collapse" data-parent="#accordionExample">
+                        <!-- 'class': $data.collapseShow($index); inject this function into viewModel, then define this method-->
                         <div class="card-body">
 
-                            <ul data-bind="foreach: $data.questions">
-                                <li data-bind="template: {name: 'questionType' + $data.questionTypeId()}"></li>
-                            </ul>
+                            <div data-bind="foreach: $data.questions">
+                                <div data-bind="template: {name: 'questionType' + $data.questionTypeId()}"></div>
+                            </div>
                             <div data-bind="foreach: $data.subcategories">
                                 <h3 data-bind="text: $data.subcategoryName"></h3>
 
-                                <ol data-bind="foreach: $data.questions">
-                                    <li data-bind="template: {name: 'questionType' + $data.questionTypeId()}"></li>
-                                </ol>
+                                <div data-bind="foreach: $data.questions">
+                                    <div data-bind="template: {name: 'questionType' + $data.questionTypeId()}"></div>
+                                </div>
                             </div>
 
                         </div>
-                    </div>
+                    </form>
                 </div>
 
             </div>
         </div>
     </main>
     <template id="questionType1">
+        <!--In line below, we check to see if this question should be displayed based on its dependent question-->
         <div class="form-group" data-bind="visible: checkQuestionDependencies($parent.questions(), $data)">
             <label>
                 <i class="fa fa-asterisk text-danger" data-bind="visible: $data.required"></i>
-                <!--ko text: $data.questionText-->
-                <!--/ko-->
+                <!--ko text: $data.questionText--><!--/ko-->
+                <i id="tooltip" data-bind="visible: $data.questionHelpText, attr: {title: $data.questionHelpText}" class="fa fa-question-circle" data-toggle="tooltip" data-placement="right"></i>
             </label>
             <select data-bind="value: $data.questionValue, attr: {required: $data.required, id: 'Q' + $data.questionId()}"
-                class="form-control" type="text">
+                    class="form-control" type="text">
                 <option value="" hidden>Choose</option>
                 <!--ko foreach: $data.lookup-->
                 <option data-bind="value: $data.questionLookupValue, text: $data.questionLookupText"></option>
@@ -74,8 +76,8 @@
             </select>
             <!--Now we loop through conditional info and determine if we should -->
             <!--ko foreach: $data.conditionalInfo-->
-            <div class="alert alert-info mt-3" data-bind="visible: $parent.questionValue()==$data.dependencyValue()">
-                <i class="fa fa-exclamation-triangle text-warning"></i>
+            <div data-bind="visible: $parent.questionValue()==$data.dependencyValue(), class: checkAlert($data.messageTypeId())">
+                <i data-bind="class: checkConditions($data.messageTypeId())"></i>
                 <!--ko text: $data.message-->
                 <!--/ko-->
             </div>
@@ -84,32 +86,61 @@
     </template>
     <template id="questionType2">
         <div class="form-group" data-bind="visible: checkQuestionDependencies($parent.questions(), $data)">
-            <label data-bind="text: $data.questionText" for="Date"></label>
+            <label data-bind="text: $data.questionText, attr:{for: 'Q' + $data.questionId()}"></label>
+            <i id="tooltip" data-bind="visible: $data.questionHelpText, attr: {title: $data.questionHelpText}" class="fa fa-question-circle" data-toggle="tooltip" data-placement="right"></i>
             <input data-bind="$data.questionValue, attr: {id: 'Q' + $data.questionId()}" class="form-control"
-                type="date" autocomplete="off" />
+                   type="date" autocomplete="off" />
+
+            <!--Now we loop through conditional info and determine if we should -->
+            <!--ko foreach: $data.conditionalInfo-->
+            <div data-bind="visible: $parent.questionValue()==$data.dependencyValue(), class: checkAlert($data.messageTypeId())">
+                <i data-bind="class: checkConditions($data.messageTypeId())"></i>
+                <!--ko text: $data.message-->
+                <!--/ko-->
+            </div>
+            <!--/ko-->
         </div>
     </template>
     <template id="questionType3">
         <div class="form-group" data-bind="visible: checkQuestionDependencies($parent.questions(), $data)">
             <label data-bind="text: $data.questionText, attr: {id: 'Q' + $data.questionId()}"></label>
+            <i id="tooltip" data-bind="visible: $data.questionHelpText, attr: {title: $data.questionHelpText}" class="fa fa-question-circle" data-toggle="tooltip" data-placement="right"></i>
             <select class="form-control form-control" data-bind="value: $data.questionValue,
             options: $data.lookup,
             optionsText: 'questionLookupText',
             optionsValue: 'questionLookupValue',
             optionsCaption: 'Choose...',
             attr: {id: 'Q' + $data.questionId(), required: $data.required}">
-    </select>
+            </select>
+            <!--Now we loop through conditional info and determine if we should -->
+            <!--ko foreach: $data.conditionalInfo-->
+            <div data-bind="visible: $parent.questionValue()==$data.dependencyValue(), class: checkAlert($data.messageTypeId())">
+                <i data-bind="class: checkConditions($data.messageTypeId())"></i>
+                <!--ko text: $data.message-->
+                <!--/ko-->
+            </div>
+            <!--/ko-->
         </div>
     </template>
     <template id="questionType4">
         <div class="form-group" data-bind="visible: checkQuestionDependencies($parent.questions(), $data)">
-            <label
-                data-bind="text: $data.questionText, attr: {id: 'Q' + $data.questionId() + '_' + $index(), name: 'Q' + $data.questionId()}"></label>
+            <label data-bind="text: $data.questionText, attr: {id: 'Q' + $data.questionId() + '_' + $index(), name: 'Q' + $data.questionId()}"></label>
             <!--ko foreach: $data.lookup-->
             <div class="form-check">
+                <input class="form-check-input" type="checkbox"
+                       data-bind="value: $data.questionLookupValue,
+                    attr: {id: 'Q' + $parent.questionId() + '_' + $data.questionLookupSequence(),
+                    name: 'Q'+ $parent.questionId()},
+                    checked: $parent.questionValues().includes($data.questionLookupValue)" />
                 <label data-bind="text: $data.questionLookupText"></label>
-                <input type="checkbox"
-                    data-bind="value: $data.questionLookupValue, checked: $parent.questionValues().includes($data.questionLookupValue)" />
+            </div>
+            <!--/ko-->
+            <!--Now we loop through conditional info and determine if we should -->
+            <!--ko foreach: $data.conditionalInfo-->
+            <div data-bind="visible: $parent.questionValue()==$data.dependencyValue(), class: checkAlert($data.messageTypeId())">
+                <i data-bind="class: checkConditions($data.messageTypeId())"></i>
+                <!--ko text: $data.message-->
+                <!--/ko-->
             </div>
             <!--/ko-->
         </div>
@@ -118,63 +149,134 @@
         <div class="form-group" data-bind="visible: checkQuestionDependencies($parent.questions(), $data)">
             <label data-bind="text: $data.questionText"></label>
             <input data-bind="value: $data.questionValue, attr: {id: 'Q' + $data.questionId()}" class="form-control"
-                type="number" min="3" maxlength="1000" />
+                   type="number" min="3" maxlength="1000" />
+
+            <!--Now we loop through conditional info and determine if we should -->
+            <!--ko foreach: $data.conditionalInfo-->
+            <div data-bind="visible: $parent.questionValue()==$data.dependencyValue(), class: checkAlert($data.messageTypeId())">
+                <i data-bind="class: checkConditions($data.messageTypeId())"></i>
+                <!--ko text: $data.message-->
+                <!--/ko-->
+            </div>
+            <!--/ko-->
         </div>
     </template>
     <template id="questionType6">
         <div class="form-group" data-bind="visible: checkQuestionDependencies($parent.questions(), $data)">
             <label data-bind="text: $data.questionText"></label>
             <input data-bind="value: $data.questionValue, attr: {id: 'Q' + $data.questionId()}" class="form-control"
-                minlength="0" name="decimal" />
+                   minlength="0" name="decimal" />
+
+            <!--Now we loop through conditional info and determine if we should -->
+            <!--ko foreach: $data.conditionalInfo-->
+            <div data-bind="visible: $parent.questionValue()==$data.dependencyValue(), class: checkAlert($data.messageTypeId())">
+                <i data-bind="class: checkConditions($data.messageTypeId())"></i>
+                <!--ko text: $data.message-->
+                <!--/ko-->
+            </div>
+            <!--/ko-->
         </div>
     </template>
     <template id="questionType7">
         <div class="form-group" data-bind="visible: checkQuestionDependencies($parent.questions(), $data)">
             <label data-bind="text: $data.questionText"></label>
-            <input
-                data-bind="value: $data.questionValue, attr: {id: 'Q' + $data.questionId(), 'data-mask': $data.attributes()[0].value}"
-                class="form-control" type="text" />
+            <input data-bind="value: $data.questionValue, attr: {id: 'Q' + $data.questionId(), 'data-mask': $data.attributes()[0].value}"
+                   class="form-control" type="text" />
+
+            <!--Now we loop through conditional info and determine if we should -->
+            <!--ko foreach: $data.conditionalInfo-->
+            <div data-bind="visible: $parent.questionValue()==$data.dependencyValue(), class: checkAlert($data.messageTypeId())">
+                <i data-bind="class: checkConditions($data.messageTypeId())"></i>
+                <!--ko text: $data.message-->
+                <!--/ko-->
+            </div>
+            <!--/ko-->
         </div>
     </template>
     <template id="questionType8">
         <div class="form-group" data-bind="visible: checkQuestionDependencies($parent.questions(), $data)">
             <label data-bind="text: $data.questionText"></label>
             <input data-bind="value: $data.questionValue, attr: {id: 'Q' + $data.questionId()}" class="form-control"
-                type="text" />
+                   type="text" />
+
+            <!--Now we loop through conditional info and determine if we should -->
+            <!--ko foreach: $data.conditionalInfo-->
+            <div data-bind="visible: $parent.questionValue()==$data.dependencyValue(), class: checkAlert($data.messageTypeId())">
+                <i data-bind="class: checkConditions($data.messageTypeId())"></i>
+                <!--ko text: $data.message-->
+                <!--/ko-->
+            </div>
+            <!--/ko-->
         </div>
     </template>
     <template id="questionType9">
         <div class="form-group" data-bind="visible: checkQuestionDependencies($parent.questions(), $data)">
             <label data-bind="text: $data.questionText"></label>
             <input data-bind="value: $data.questionValue, attr: {id: 'Q' + $data.questionId()}" class="form-control"
-                type="text" />
+                   type="text" />
+
+            <!--Now we loop through conditional info and determine if we should -->
+            <!--ko foreach: $data.conditionalInfo-->
+            <div data-bind="visible: $parent.questionValue()==$data.dependencyValue(), class: checkAlert($data.messageTypeId())">
+                <i data-bind="class: checkConditions($data.messageTypeId())"></i>
+                <!--ko text: $data.message-->
+                <!--/ko-->
+            </div>
+            <!--/ko-->
         </div>
     </template>
     <template id="questionType10">
         <div class="form-group" data-bind="visible: checkQuestionDependencies($parent.questions(), $data)">
             <label data-bind="text: $data.questionText"></label>
             <input data-bind="value: $data.questionValue, attr: {id: 'Q' + $data.questionId()}" class="form-control"
-                type="text" />
+                   type="text" />
+
+            <!--Now we loop through conditional info and determine if we should -->
+            <!--ko foreach: $data.conditionalInfo-->
+            <div data-bind="visible: $parent.questionValue()==$data.dependencyValue(), class: checkAlert($data.messageTypeId())">
+                <i data-bind="class: checkConditions($data.messageTypeId())"></i>
+                <!--ko text: $data.message-->
+                <!--/ko-->
+            </div>
+            <!--/ko-->
         </div>
     </template>
     <template id="questionType11">
         <div class="form-group" data-bind="visible: checkQuestionDependencies($parent.questions(), $data)">
             <label data-bind="text: $data.questionText"></label>
             <input data-bind="value: $data.questionValue, attr: {id: 'Q' + $data.questionId()}" class="form-control"
-                type="text" />
+                   type="text" />
+
+            <!--Now we loop through conditional info and determine if we should -->
+            <!--ko foreach: $data.conditionalInfo-->
+            <div data-bind="visible: $parent.questionValue()==$data.dependencyValue(), class: checkAlert($data.messageTypeId())">
+                <i data-bind="class: checkConditions($data.messageTypeId())"></i>
+                <!--ko text: $data.message-->
+                <!--/ko-->
+            </div>
+            <!--/ko-->
         </div>
     </template>
     <template id="questionType12">
         <div class="form-group" data-bind="visible: checkQuestionDependencies($parent.questions(), $data)">
             <label data-bind="text: $data.questionText"></label>
             <textarea data-bind="value: $data.questionValue, attr: {id: 'Q' + $data.questionId()}" class="form-control"
-                type="text" rows="4" maxlength="254"></textarea>
+                      type="text" rows="4" maxlength="254"></textarea>
+
+            <!--Now we loop through conditional info and determine if we should -->
+            <!--ko foreach: $data.conditionalInfo-->
+            <div data-bind="visible: $parent.questionValue()==$data.dependencyValue(), class: checkAlert($data.messageTypeId())">
+                <i data-bind="class: checkConditions($data.messageTypeId())"></i>
+                <!--ko text: $data.message-->
+                <!--/ko-->
+            </div>
+            <!--/ko-->
         </div>
     </template>
     <template id="questionType13">
         <div class="form-group">
             <label data-bind="text: $data.questionText"></label>
-            <select data-bind="value: $data.questionValue, attr: {id: 'Q' + $data.questionId()}" class="form-control type="text" >
+            <select data-bind="value: $data.questionValue, attr: {id: 'Q' + $data.questionId()}" class="form-control type="text">
                 <option value="">Choose</option>
                 <!--ko foreach: $data.lookupGroups-->
                 <optgroup data-bind="attr: {label: $data.groupName}, foreach: $data.lookup">
@@ -182,11 +284,19 @@
                 </optgroup>
                 <!--/ko-->
             </select>
+
+            <!--Now we loop through conditional info and determine if we should -->
+            <!--ko foreach: $data.conditionalInfo-->
+            <div data-bind="visible: $parent.questionValue()==$data.dependencyValue(), class: checkAlert($data.messageTypeId())">
+                <i data-bind="class: checkConditions($data.messageTypeId())"></i>
+                <!--ko text: $data.message-->
+                <!--/ko-->
+            </div>
+            <!--/ko-->
         </div>
     </template>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
-    <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.min.js"></script>

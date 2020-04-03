@@ -1,5 +1,5 @@
 var hostUrl = "https://mobilea-patientportal-api.azurewebsites.net/api/";
-var caseId = 230277; 
+var caseId = 228853; 
 
 function getPatientName(accessKey, caseId, chartNumber, callback){
     $.ajax({
@@ -14,7 +14,7 @@ function getPatientName(accessKey, caseId, chartNumber, callback){
         error: function(result){
             console.error("Failed to get the patient name");
         }
-    })
+    });
 }
 
 function initialize(){
@@ -43,7 +43,7 @@ function isAuthorized (lastName, dob, callback){
             sessionStorage.setItem("chartNumber", JSON.stringify(result.chartNumber));
             getPatientName(result.accessKey, result.caseId, result.chartNumber, function(patientName){
                 callback(true);
-            })
+            });
         },
         error: () => callback(false)
     });
@@ -126,7 +126,7 @@ function validateForm(){
                 }
             });
         }
-    })
+    });
         
     } catch (error) {
         console.error(error + " in validate form");
