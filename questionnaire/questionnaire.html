@@ -16,14 +16,9 @@
         </h3>
         <!--the below data-bind executes the onBindingComplete() function once all binding has finished!,
         and gives control back over to the javascript-->
-        <div id="MedicalHistory" class="jumbotron" data-bind="childrenComplete: onBindingComplete"
-             style="display: none">
+        <div id="MedicalHistory" class="jumbotron" data-bind="childrenComplete: onBindingComplete" style="display: none">
             <div class="header">
-                <h2>Questionnaire Progress</h2>
-                <div class="progress-container">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" id="myBar">
-                    </div>
-                </div>
+                <h2>Questionnaire</h2>
             </div>
             <div class="accordion" id="accordionExample">
                 <div data-bind="foreach: $data.categories" class="card">
@@ -65,7 +60,7 @@
             <label>
                 <i class="fa fa-asterisk text-danger" data-bind="visible: $data.required"></i>
                 <!--ko text: $data.questionText--><!--/ko-->
-                <i id="tooltip" data-bind="visible: $data.questionHelpText, attr: {title: $data.questionHelpText}" class="fa fa-question-circle" data-toggle="tooltip" data-placement="right"></i>
+                <i id="tooltip" data-bind="visible: $data.questionHelpText, attr: {title: $data.questionHelpText}" class="fa fa-question-circle text-info" data-toggle="tooltip" data-placement="right"></i>
             </label>
             <select data-bind="value: $data.questionValue, attr: {required: $data.required, id: 'Q' + $data.questionId()}"
                     class="form-control" type="text">
@@ -86,6 +81,7 @@
     </template>
     <template id="questionType2">
         <div class="form-group" data-bind="visible: checkQuestionDependencies($parent.questions(), $data)">
+            <i class="fa fa-asterisk text-danger" data-bind="visible: $data.required"></i>
             <label data-bind="text: $data.questionText, attr:{for: 'Q' + $data.questionId()}"></label>
             <i id="tooltip" data-bind="visible: $data.questionHelpText, attr: {title: $data.questionHelpText}" class="fa fa-question-circle" data-toggle="tooltip" data-placement="right"></i>
             <input data-bind="$data.questionValue, attr: {id: 'Q' + $data.questionId()}" class="form-control"
@@ -103,6 +99,7 @@
     </template>
     <template id="questionType3">
         <div class="form-group" data-bind="visible: checkQuestionDependencies($parent.questions(), $data)">
+            <i class="fa fa-asterisk text-danger" data-bind="visible: $data.required"></i>
             <label data-bind="text: $data.questionText, attr: {id: 'Q' + $data.questionId()}"></label>
             <i id="tooltip" data-bind="visible: $data.questionHelpText, attr: {title: $data.questionHelpText}" class="fa fa-question-circle" data-toggle="tooltip" data-placement="right"></i>
             <select class="form-control form-control" data-bind="value: $data.questionValue,
@@ -124,6 +121,7 @@
     </template>
     <template id="questionType4">
         <div class="form-group" data-bind="visible: checkQuestionDependencies($parent.questions(), $data)">
+            <i class="fa fa-asterisk text-danger" data-bind="visible: $data.required"></i>
             <label data-bind="text: $data.questionText, attr: {id: 'Q' + $data.questionId() + '_' + $index(), name: 'Q' + $data.questionId()}"></label>
             <!--ko foreach: $data.lookup-->
             <div class="form-check">
@@ -147,6 +145,7 @@
     </template>
     <template id="questionType5">
         <div class="form-group" data-bind="visible: checkQuestionDependencies($parent.questions(), $data)">
+            <i class="fa fa-asterisk text-danger" data-bind="visible: $data.required"></i>
             <label data-bind="text: $data.questionText"></label>
             <input data-bind="value: $data.questionValue, attr: {id: 'Q' + $data.questionId()}" class="form-control"
                    type="number" min="3" maxlength="1000" />
@@ -163,6 +162,7 @@
     </template>
     <template id="questionType6">
         <div class="form-group" data-bind="visible: checkQuestionDependencies($parent.questions(), $data)">
+            <i class="fa fa-asterisk text-danger" data-bind="visible: $data.required"></i>
             <label data-bind="text: $data.questionText"></label>
             <input data-bind="value: $data.questionValue, attr: {id: 'Q' + $data.questionId()}" class="form-control"
                    minlength="0" name="decimal" />
@@ -179,6 +179,7 @@
     </template>
     <template id="questionType7">
         <div class="form-group" data-bind="visible: checkQuestionDependencies($parent.questions(), $data)">
+            <i class="fa fa-asterisk text-danger" data-bind="visible: $data.required"></i>
             <label data-bind="text: $data.questionText"></label>
             <input data-bind="value: $data.questionValue, attr: {id: 'Q' + $data.questionId(), 'data-mask': $data.attributes()[0].value}"
                    class="form-control" type="text" />
@@ -195,6 +196,7 @@
     </template>
     <template id="questionType8">
         <div class="form-group" data-bind="visible: checkQuestionDependencies($parent.questions(), $data)">
+            <i class="fa fa-asterisk text-danger" data-bind="visible: $data.required"></i>
             <label data-bind="text: $data.questionText"></label>
             <input data-bind="value: $data.questionValue, attr: {id: 'Q' + $data.questionId()}" class="form-control"
                    type="text" />
@@ -211,6 +213,7 @@
     </template>
     <template id="questionType9">
         <div class="form-group" data-bind="visible: checkQuestionDependencies($parent.questions(), $data)">
+            <i class="fa fa-asterisk text-danger" data-bind="visible: $data.required"></i>
             <label data-bind="text: $data.questionText"></label>
             <input data-bind="value: $data.questionValue, attr: {id: 'Q' + $data.questionId()}" class="form-control"
                    type="text" />
@@ -227,6 +230,7 @@
     </template>
     <template id="questionType10">
         <div class="form-group" data-bind="visible: checkQuestionDependencies($parent.questions(), $data)">
+            <i class="fa fa-asterisk text-danger" data-bind="visible: $data.required"></i>
             <label data-bind="text: $data.questionText"></label>
             <input data-bind="value: $data.questionValue, attr: {id: 'Q' + $data.questionId()}" class="form-control"
                    type="text" />
@@ -243,6 +247,7 @@
     </template>
     <template id="questionType11">
         <div class="form-group" data-bind="visible: checkQuestionDependencies($parent.questions(), $data)">
+            <i class="fa fa-asterisk text-danger" data-bind="visible: $data.required"></i>
             <label data-bind="text: $data.questionText"></label>
             <input data-bind="value: $data.questionValue, attr: {id: 'Q' + $data.questionId()}" class="form-control"
                    type="text" />
@@ -259,6 +264,7 @@
     </template>
     <template id="questionType12">
         <div class="form-group" data-bind="visible: checkQuestionDependencies($parent.questions(), $data)">
+            <i class="fa fa-asterisk text-danger" data-bind="visible: $data.required"></i>
             <label data-bind="text: $data.questionText"></label>
             <textarea data-bind="value: $data.questionValue, attr: {id: 'Q' + $data.questionId()}" class="form-control"
                       type="text" rows="4" maxlength="254"></textarea>
@@ -275,6 +281,7 @@
     </template>
     <template id="questionType13">
         <div class="form-group">
+            <i class="fa fa-asterisk text-danger" data-bind="visible: $data.required"></i>
             <label data-bind="text: $data.questionText"></label>
             <select data-bind="value: $data.questionValue, attr: {id: 'Q' + $data.questionId()}" class="form-control type="text">
                 <option value="">Choose</option>

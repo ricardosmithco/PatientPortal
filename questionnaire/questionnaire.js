@@ -123,7 +123,7 @@ function onQuestionChanged(ctrl) {
 
     if (isCheckboxList || isRadioList || isSearchInput) {
         // this is a multi answer question
-        
+
         /* Identify the questionId*/
         /* STEP 3a: Extract the QuestionID from the "name" attribute. */
         let questionIdName = $(ctrl).attr("name");
@@ -191,20 +191,6 @@ function returnQuestionnaireData() {
     }
 }
 
-/* Below two functions are responsible for the scroll bar */
-window.onscroll = function () {
-    scrollFunction();
-};
-
-function scrollFunction() {
-    var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-    var height =
-        document.documentElement.scrollHeight -
-        document.documentElement.clientHeight;
-    var scrolled = (winScroll / height) * 100;
-    document.getElementById("myBar").style.width = scrolled + "%";
-}
-
 /* This makes API call to save the question and answer */
 function submitAnswer(questionId, questionValues) {
     let postData = {
@@ -220,8 +206,8 @@ function submitAnswer(questionId, questionValues) {
             headers: { "x-functions-key": accessKey, "chart-number": chartNumber },
             data: JSON.stringify(postData), // converting Javascript objects into a JSON string.
             beforeSend: () => console.log("Question Save - " + JSON.stringify(postData)),
-            success: result =>  resolve(result) ,
-            error: error => reject(error)
+            success: (result) =>  {resolve(result); console.info("Question saved successfully"); },
+            error: (error) => reject(error)
         });
     });
 }
