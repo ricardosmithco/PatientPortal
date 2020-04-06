@@ -215,6 +215,8 @@ function submitAnswer(questionId, questionValues) {
     });
 }
 
+/* This loops through the questions to see if they have been answered or not
+if any have not bee answered, function returns false*/
 function validateRequired(category){
   if(category.subcategories().length != 0){
     for(let subcategory of category.subcategories()){
@@ -224,6 +226,8 @@ function validateRequired(category){
   return category.questions().every(checkRequiredAnswers);
 }
 
+/* helper function for validateRequired, checking that all the questions are answered*/
+// TODO: make this function only check for questions that are required !
 function checkRequiredAnswers(question){
-  return question.questionValue() != "";
+    return question.questionValue() != "";
 }
