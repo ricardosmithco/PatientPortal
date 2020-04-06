@@ -30,6 +30,7 @@
                                     data-bind="attr: {'data-target': '#category' + $data.categoryId(), 'aria-controls': 'category' + $data.categoryId()}">
                                 <!--ko text: $data.categoryShortName-->
                                 <!-- /ko -->
+                                <i data-bind="visible: validateRequired($data)" class="fa fa-check-square-o" style="color: green;"></i>
                             </button>
                         </h2>
                     </div>
@@ -149,6 +150,7 @@
         <div class="form-group" data-bind="visible: checkQuestionDependencies($parent.questions(), $data)">
             <i class="fa fa-asterisk text-danger" data-bind="visible: $data.required"></i>
             <label data-bind="text: $data.questionText"></label>
+            <i id="tooltip" data-bind="visible: $data.questionHelpText, attr: {title: $data.questionHelpText}" class="fa fa-question-circle" data-toggle="tooltip" data-placement="right"></i>
             <input data-bind="value: $data.questionValue, attr: {id: 'Q' + $data.questionId()}" class="form-control"
                    type="number" min="3" maxlength="1000" />
 
@@ -166,6 +168,7 @@
         <div class="form-group" data-bind="visible: checkQuestionDependencies($parent.questions(), $data)">
             <i class="fa fa-asterisk text-danger" data-bind="visible: $data.required"></i>
             <label data-bind="text: $data.questionText"></label>
+            <i id="tooltip" data-bind="visible: $data.questionHelpText, attr: {title: $data.questionHelpText}" class="fa fa-question-circle" data-toggle="tooltip" data-placement="right"></i>
             <input data-bind="value: $data.questionValue, attr: {id: 'Q' + $data.questionId()}" class="form-control"
                    minlength="0" name="decimal" />
 
@@ -183,6 +186,7 @@
         <div class="form-group" data-bind="visible: checkQuestionDependencies($parent.questions(), $data)">
             <i class="fa fa-asterisk text-danger" data-bind="visible: $data.required"></i>
             <label data-bind="text: $data.questionText"></label>
+            <i id="tooltip" data-bind="visible: $data.questionHelpText, attr: {title: $data.questionHelpText}" class="fa fa-question-circle" data-toggle="tooltip" data-placement="right"></i>
             <input data-bind="value: $data.questionValue, attr: {id: 'Q' + $data.questionId(), 'data-mask': $data.attributes()[0].value}"
                    class="form-control" type="text" />
 
@@ -200,6 +204,7 @@
         <div class="form-group" data-bind="visible: checkQuestionDependencies($parent.questions(), $data)">
             <i class="fa fa-asterisk text-danger" data-bind="visible: $data.required"></i>
             <label data-bind="text: $data.questionText"></label>
+            <i id="tooltip" data-bind="visible: $data.questionHelpText, attr: {title: $data.questionHelpText}" class="fa fa-question-circle" data-toggle="tooltip" data-placement="right"></i>
             <input data-bind="value: $data.questionValue, attr: {id: 'Q' + $data.questionId()}" class="form-control"
                    type="text" />
 
@@ -217,6 +222,7 @@
         <div class="form-group" data-bind="visible: checkQuestionDependencies($parent.questions(), $data)">
             <i class="fa fa-asterisk text-danger" data-bind="visible: $data.required"></i>
             <label data-bind="text: $data.questionText"></label>
+            <i id="tooltip" data-bind="visible: $data.questionHelpText, attr: {title: $data.questionHelpText}" class="fa fa-question-circle" data-toggle="tooltip" data-placement="right"></i>
             <input data-bind="value: $data.questionValue, attr: {id: 'Q' + $data.questionId()}" class="form-control"
                    type="text" />
 
@@ -234,6 +240,7 @@
         <div class="form-group" data-bind="visible: checkQuestionDependencies($parent.questions(), $data)">
             <i class="fa fa-asterisk text-danger" data-bind="visible: $data.required"></i>
             <label data-bind="text: $data.questionText"></label>
+            <i id="tooltip" data-bind="visible: $data.questionHelpText, attr: {title: $data.questionHelpText}" class="fa fa-question-circle" data-toggle="tooltip" data-placement="right"></i>
             <input data-bind="value: $data.questionValue, attr: {id: 'Q' + $data.questionId()}" class="form-control"
                    type="text" />
 
@@ -251,6 +258,7 @@
         <div class="form-group" data-bind="visible: checkQuestionDependencies($parent.questions(), $data)">
             <i class="fa fa-asterisk text-danger" data-bind="visible: $data.required"></i>
             <label data-bind="text: $data.questionText"></label>
+            <i id="tooltip" data-bind="visible: $data.questionHelpText, attr: {title: $data.questionHelpText}" class="fa fa-question-circle" data-toggle="tooltip" data-placement="right"></i>
             <input data-bind="value: $data.questionValue, attr: {id: 'Q' + $data.questionId()}" class="form-control"
                    type="text" />
 
@@ -268,6 +276,7 @@
         <div class="form-group" data-bind="visible: checkQuestionDependencies($parent.questions(), $data)">
             <i class="fa fa-asterisk text-danger" data-bind="visible: $data.required"></i>
             <label data-bind="text: $data.questionText"></label>
+            <i id="tooltip" data-bind="visible: $data.questionHelpText, attr: {title: $data.questionHelpText}" class="fa fa-question-circle" data-toggle="tooltip" data-placement="right"></i>
             <textarea data-bind="value: $data.questionValue, attr: {id: 'Q' + $data.questionId()}" class="form-control"
                       type="text" rows="4" maxlength="254"></textarea>
 
@@ -285,6 +294,7 @@
         <div class="form-group">
             <i class="fa fa-asterisk text-danger" data-bind="visible: $data.required"></i>
             <label data-bind="text: $data.questionText"></label>
+            <i id="tooltip" data-bind="visible: $data.questionHelpText, attr: {title: $data.questionHelpText}" class="fa fa-question-circle" data-toggle="tooltip" data-placement="right"></i>
             <select data-bind="value: $data.questionValue, attr: {id: 'Q' + $data.questionId()}" class="form-control type="text">
                 <option value="">Choose</option>
                 <!--ko foreach: $data.lookupGroups-->

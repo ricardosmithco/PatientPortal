@@ -1,7 +1,7 @@
 var hostUrl = "https://mobilea-patientportal-api.azurewebsites.net/api/";
-var caseId = 228853;
+var caseId = 229348;
 var accessKey = "W9tkZiYMaosc4Daaw1JtpFSE/JPZHyNyaeARzmK6De9Div5qLwtxlA==";
-var chartNumber = 862780682;
+var chartNumber = 896823301;
 var viewModel;
 
 function initialize() {
@@ -86,6 +86,7 @@ function onBindingComplete() {
 
     /*Attach an .onChange() event to questions*/
     $("#MedicalHistory select").change(function () {
+      event.preventDefault();
         onQuestionChanged(this);
     });
     $("#MedicalHistory textarea").change(function () {
@@ -212,4 +213,17 @@ function submitAnswer(questionId, questionValues) {
             error: (error) => reject(error)
         });
     });
+}
+
+function validateRequired(category){
+  if(category.subcategories().length != 0){
+    for(let subcategory of category.subcategories()){
+      return subcategory.questions().every(checkRequiredAnswers);
+    }
+  }
+  return category.questions().every(checkRequiredAnswers);
+}
+
+function checkRequiredAnswers(question){
+  return question.questionValue() != "";
 }
