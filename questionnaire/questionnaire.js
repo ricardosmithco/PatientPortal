@@ -51,11 +51,13 @@ function checkQuestionDependencies(allQuestions, data) {
         let dependencyQValue = dependency.questionValue();
 
         for (let question of allQuestions) {
-            if (
-                question.questionId() === dependencyQId &&
-                question.questionValue() === dependencyQValue
-            ) {
+            if (question.questionId() === dependencyQId && question.questionValue() === dependencyQValue){
                 return true;
+            }
+            for(let value of question.questionValues()){
+              if(question.questionId() === dependencyQId && value === dependencyQValue){
+                return true;
+              }
             }
         }
     }
@@ -206,7 +208,7 @@ function submitAnswer(questionId, questionValues) {
             headers: { "x-functions-key": accessKey, "chart-number": chartNumber },
             data: JSON.stringify(postData), // converting Javascript objects into a JSON string.
             beforeSend: () => console.log("Question Save - " + JSON.stringify(postData)),
-            success: (result) =>  {resolve(result); console.info("Question saved successfully"); },
+            success: (result) =>  {resolve(result); toastr.success('Success! Question Saved');},
             error: (error) => reject(error)
         });
     });

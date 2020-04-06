@@ -5,6 +5,8 @@
     <link href="//stackpath.bootstrapcdn.com/bootswatch/4.4.1/spacelab/bootstrap.min.css" />
     <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootswatch/4.4.1/spacelab/bootstrap.min.css" />
     <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+    <!--<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.css" rel="stylesheet"> -->
     <link rel="stylesheet" href="questionnaire.css" />
 </head>
 
@@ -84,7 +86,7 @@
             <i class="fa fa-asterisk text-danger" data-bind="visible: $data.required"></i>
             <label data-bind="text: $data.questionText, attr:{for: 'Q' + $data.questionId()}"></label>
             <i id="tooltip" data-bind="visible: $data.questionHelpText, attr: {title: $data.questionHelpText}" class="fa fa-question-circle" data-toggle="tooltip" data-placement="right"></i>
-            <input data-bind="$data.questionValue, attr: {id: 'Q' + $data.questionId()}" class="form-control"
+            <input data-bind="value: $data.questionValue, attr: {id: 'Q' + $data.questionId()}" class="form-control"
                    type="date" autocomplete="off" />
 
             <!--Now we loop through conditional info and determine if we should -->
@@ -305,6 +307,8 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <!--<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script> -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.4.1/knockout.mapping.min.js"></script>
