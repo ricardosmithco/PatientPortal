@@ -15,7 +15,7 @@
 
 .header {
     position: fixed;
-    top: 0;
+    top: 10;
     z-index: 1;
     width: 100%;
     background-color: #f1f1f1;
@@ -48,5 +48,32 @@
   position: fixed;
   top: 30%;
   left: 40%;
+}
+
+.MobileA_Dev {
+  background-image: url(https://mobilea.blob.core.windows.net/backgrounds/MobileA_Dev.png)
+}
+
+.MobileA_QA {
+  background-image: url(https://mobilea.blob.core.windows.net/backgrounds/MobileA_QA.png)
+}
+
+.MobileA_UAT {
+  background-image: url(https://mobilea.blob.core.windows.net/backgrounds/MobileA_UAT.png)
+}
+
+.navbar {
+  font-size: 1.25rem
+}
+
+.navbar-expand-md .navbar-nav .nav-link {
+  padding-left: 2rem
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap
 }
 
