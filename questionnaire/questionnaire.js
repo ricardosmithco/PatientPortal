@@ -301,5 +301,30 @@ function validateRequired(category) {
 /* helper function for validateRequired, checking that all the questions are answered*/
 // TODO: make this function only check for questions that are required !
 function checkRequiredAnswers(question) {
-  return question.questionValue() != "";
+  if(question.required() == true){
+    return question.questionValue() != "";
+  }
+
+  
+  
+  function isQuestionDisabled(questions, currentQuestion) {
+        try {
+            /* STEP 1: Lookup the Index for this question. */
+
+            /* RULE #1: If this is the 1st question in a Category/Subcategory return false. */
+
+            /* STEP 2: Iterate through all of the questions in the Category/Subcategory that have a lower
+
+            /* RULE #2: HardStops are based on Conditional information. Return FALSE if there are none. */
+
+            /* STEP 3: Iterate through the ConditionalInfo*/
+
+            return false;
+
+        } catch (err) {
+            //ex.log(err, `${pageName}.isQuestionDisabled()`);
+            return false;
+        }
+    }
+  
 }
