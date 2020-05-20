@@ -2,11 +2,9 @@
 <html>
 
 <head>
-    <link href="//stackpath.bootstrapcdn.com/bootswatch/4.4.1/spacelab/bootstrap.min.css" />
     <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootswatch/4.4.1/spacelab/bootstrap.min.css" />
     <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
-    <!--<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.css" rel="stylesheet"> -->
     <link rel="stylesheet" href="questionnaire.css" />
 </head>
 
@@ -69,7 +67,7 @@
                     <div class="card-header" data-bind="attr:{id: 'categoryName' + $data.categoryId()}">
                         <h2 class="mb-0"></h2>
                         <button class="btn btn-link" type="button" data-toggle="collapse"
-                            data-bind="click: buildFormId($data.categoryId(), event), attr: {'data-target': '#category' + $data.categoryId(), 'aria-controls': 'category' + $data.categoryId()}">
+                            data-bind="click: buildFormId($data.categoryId()), attr: {'data-target': '#category' + $data.categoryId(), 'aria-controls': 'category' + $data.categoryId(), id: 'tabC' + $data.categoryId()}">
                             <!--ko text: $data.categoryShortName-->
                             <!-- /ko -->
                             <i data-bind="visible: validateRequired($data)" class="fa fa-check-square-o"
@@ -99,10 +97,14 @@
                                     <i class="fa fa-chevron-left"></i>
                                     Previous
                                 </button>
-                                <button class="btn btn-primary" data-bind="style: {visibility: ($index() == $root.categories().length-1) ? 'hidden' : 'visible'}">
+                                <!--ko ifnot: $index() == $parent.categories().length-1 -->
+                                <button class="btn btn-primary" data-bind="attr: {'data-nextlink': '#tabC' + $parent.categories()[$index()+1].categoryId()}" onclick="$($(this).attr('data-nextlink')).click()">
                                     Next
                                     <i class="fa fa-chevron-right"></i>
+                                    (<span data-bind="text: 'Current: C' + categoryId()"></span>)
+                                    (<span data-bind="text: 'Next: C' + $parent.categories()[$index()+1].categoryId()"></span>)
                                 </button>
+                                <!--/ko-->
                                 <button type="button" class="btn btn-success" data-bind="visible: $index() == $root.categories().length-1">
                                     Finish
                                 </button>
@@ -426,7 +428,6 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.4.1/knockout.mapping.min.js"></script>
-    <script src="//stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="//cdn.jsdelivr.net/gh/RobinHerbots/jquery.inputmask@5.0.4-beta.8/dist/jquery.inputmask.min.js">

@@ -150,6 +150,7 @@ function lookupQuestionType() {
 function onBindingComplete() {
   /* Once the binding is complete, we can go ahead and remove the "data-binding" tags */
   $("#MedicalHistory [data-bind]").removeAttr("data-bind");
+  $("#category1").collapse('show');
 
   /* We hide loader and then show the Questionnaire*/
   $("#Loading").hide();
@@ -340,7 +341,7 @@ function isQuestionDisabled(questions, currentQuestion) {
   }
 }
 
-function buildFormId(data, event) {
+function buildFormId(data) {
   let formId = 'categoryId'+data;
   console.log(formId);
 }
