@@ -95,8 +95,13 @@
                             <section class="d-flex justify-content-between">
                                 <button class="btn btn-primary" data-bind="style:{visibility: $index()==0 ? 'hidden' : 'visible'}">
                                     <i class="fa fa-chevron-left"></i>
+                                    (<span data-bind="text: 'Current: C'+ $data.categoryId()"></span>)
+                                    <!--ko if: $index() != 0-->
+                                    (<span data-bind="text: 'Previous: C' + $parent.categories()[$index()-1].categoryId()"></span>)
+                                    <!--/ko-->
                                     Previous
                                 </button>
+                                
                                 <!--ko ifnot: $index() == $parent.categories().length-1 -->
                                 <button class="btn btn-primary" data-bind="attr: {'data-nextlink': '#tabC' + $parent.categories()[$index()+1].categoryId()}" onclick="$($(this).attr('data-nextlink')).click()">
                                     Next
