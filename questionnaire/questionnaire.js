@@ -78,47 +78,60 @@ function checkQuestionDependencies(allQuestions, data) {
  */
 function getQuestion(questionId) {
   // todo: Iterate through the ViewModel to identify the question by it's id.
-   //let question;
+  //let question;
 
-    for(category = 0; category < viewModel.categories().length; category++){
-        for(question = 0; question < viewModel.categories()[category].questions().length; question++){
-            if(viewModel.categories()[category].questions()[question].questionId() === questionId){
-                console.log(viewModel.categories()[category].questions()[question]);
-                return viewModel.categories()[category].questions()[question];
-            }
-        }
-
-        for(subcategory = 0; subcategory < viewModel.categories()[category].subcategories().length; subcategory++){
-            for(question = 0; question < viewModel.categories()[category].subcategories()[subcategory].questions().length; question++){
-                if(viewModel.categories()[category].subcategories()[subcategory].questions()[question].questionId() === questionId){
-                    console.log(viewModel.categories()[category].subcategories()[subcategory].questions()[question]);
-                    return viewModel.categories()[category].subcategories()[subcategory].questions()[question];
-                }
-            }
-        }
-    }
-
-/*
-  // Level 1 - Iterate through Categories
-  for (let category of viewModel.categories()) {
-    // Level 2a - Iterate through the Category/questions
-    for (let question of category.questions()) {
-      if (question.questionId() === questionId) {
-        return viewModel.categories()[category.index].quesitons()[question.index];
+  for (category = 0; category < viewModel.categories().length; category++) {
+    for (
+      question = 0;
+      question < viewModel.categories()[category].questions().length;
+      question++
+    ) {
+      if (
+        viewModel.categories()[category].questions()[question].questionId() ===
+        questionId
+      ) {
+        console.log(viewModel.categories()[category].questions()[question]);
+        return viewModel.categories()[category].questions()[question];
       }
     }
 
-    for (let subcategory of category.subcategories()) {
-      for (let question of subcategory.questions()) {
-        if (question.questionId() === questionId) {
-          return viewModel.categories()[category.index].subcategories()[subcategory.index].questions()[quesion.index];
+    // Level 2b - Iterate through the Subcategories
+    for (
+      subcategory = 0;
+      subcategory < viewModel.categories()[category].subcategories().length;
+      subcategory++
+    ) {
+      // Level 3 - Iterate through the Subcategory/Questions
+      for (
+        question = 0;
+        question <
+        viewModel
+          .categories()
+          [category].subcategories()
+          [subcategory].questions().length;
+        question++
+      ) {
+        if (
+          viewModel
+            .categories()
+            [category].subcategories()
+            [subcategory].questions()
+            [question].questionId() === questionId
+        ) {
+          console.log(
+            viewModel
+              .categories()
+              [category].subcategories()
+              [subcategory].questions()[question]
+          );
+          return viewModel
+            .categories()
+            [category].subcategories()
+            [subcategory].questions()[question];
         }
       }
     }
-  } */
-  
-  // Level 2b - Iterate through the Subcategories
-  // Level 3 - Iterate through the Subcategory/Questions
+  }
 }
 
 function lookupQuestionType() {
@@ -207,7 +220,6 @@ function onQuestionChanged(ctrl) {
     let question = getQuestion(questionId);
     console.log(question);
     question.questionValues(questionValues);
-
   } else {
     // this is a single answer question
 
@@ -301,30 +313,34 @@ function validateRequired(category) {
 /* helper function for validateRequired, checking that all the questions are answered*/
 // TODO: make this function only check for questions that are required !
 function checkRequiredAnswers(question) {
-  if(question.required() == true){
+  if (question.required() == true) {
     return question.questionValue() != "";
   }
+  if (question.required() == false) {
+    return true;
+  }
+}
 
-  
-  
-  function isQuestionDisabled(questions, currentQuestion) {
-        try {
-            /* STEP 1: Lookup the Index for this question. */
+function isQuestionDisabled(questions, currentQuestion) {
+  try {
+    /* STEP 1: Lookup the Index for this question. */
 
-            /* RULE #1: If this is the 1st question in a Category/Subcategory return false. */
+    /* RULE #1: If this is the 1st question in a Category/Subcategory return false. */
 
-            /* STEP 2: Iterate through all of the questions in the Category/Subcategory that have a lower
+    /* STEP 2: Iterate through all of the questions in the Category/Subcategory that have a lower
 
             /* RULE #2: HardStops are based on Conditional information. Return FALSE if there are none. */
 
-            /* STEP 3: Iterate through the ConditionalInfo*/
+    /* STEP 3: Iterate through the ConditionalInfo*/
 
-            return false;
+    return false;
+  } catch (err) {
+    //ex.log(err, `${pageName}.isQuestionDisabled()`);
+    return false;
+  }
+}
 
-        } catch (err) {
-            //ex.log(err, `${pageName}.isQuestionDisabled()`);
-            return false;
-        }
-    }
-  
+function buildFormId(data, event) {
+  let formId = 'categoryId'+data;
+  console.log(formId);
 }
